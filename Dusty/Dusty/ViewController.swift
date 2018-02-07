@@ -20,8 +20,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var todayResultLabel: UITextView?
     
     lazy var locationManager = CLLocationManager()
-    var city: String!
-    var dataFromAirKorea: DataFromAirKorea!
+    var city: String = "서울"
+    var dataFromAirKorea: DataFromAirKorea?
+    var dataFromAirKorea2: DataFromAirKorea2?
     
     override func viewDidLoad()
     {
@@ -31,76 +32,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        lookUpCurrentLocation { (placemark) in
-            if let rawCity = placemark?.administrativeArea
-            {
-                switch rawCity
-                {
-                case "Seoul":
-                    self.city = "서울"
-                case "Busan":
-                    self.city = "부산"
-                case "Daegu":
-                    self.city = "대구"
-                case "Incheon":
-                    self.city = "인천"
-                case "Gwangju":
-                    self.city = "광주"
-                case "Daejeon":
-                    self.city = "대전"
-                case "Ulsan":
-                    self.city = "울산"
-                case "Gyeonggi-do":
-                    self.city = "경기"
-                case "Gangwon":
-                    self.city = "강원"
-                case "Chungbuk":
-                    self.city = "충북"
-                case "Chungnam":
-                    self.city = "충남"
-                case "Jeonbuk":
-                    self.city = "전북"
-                case "Jeonnam":
-                    self.city = "전남"
-                case "Kyungbuk":
-                    self.city = "경북"
-                case "Gyeongnam":
-                    self.city = "경남"
-                case "Jeju":
-                    self.city = "제주"
-                case "Sejong":
-                    self.city = "세종"
-                default:
-                    self.city = "서울"
-                }
-            }
-        }
+        load()
     }
     
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-    }
-    
-//    func setGradientBackground()
-//    {
-//        let colorTop =  UIColor(red: 223.0/255.0, green: 227.0/255.0, blue: 238.0/255.0, alpha: 1.0).cgColor
-//        let colorBottom = UIColor(red: 180.0/255.0, green: 190.0/255.0, blue: 200.0/255.0, alpha: 1.0).cgColor
-//
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.colors = [colorTop, colorBottom]
-//        gradientLayer.locations = [0.0, 1.0]
-//        gradientLayer.frame = self.view.bounds
-//
-//        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
-//    }
-    
-    func load()
-    {
-        self.currentLocationLabel?.text = city
-        self.overallAirLabel?.text = String(describing: self.dataFromAirKorea.dataOne?.dataTwo?.khai)
-        self.fineDustLabel?.text = String(describing: self.dataFromAirKorea.dataOne?.dataTwo?.pm10)
-        self.superDustLabel?.text = String(describing: self.dataFromAirKorea.dataOne?.dataTwo?.pm25)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -138,11 +75,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     
     @IBAction func reloadLocationButton(_ sender: Any)
     {
+        load()
+    }
+    
+    func load()
+    {
         lookUpCurrentLocation { (placemark) in
-            print(placemark?.name)
-            print(placemark?.subLocality)
-            
-            if let rawCity = placemark?.locality
+            if let rawCity = placemark?.administrativeArea
             {
                 switch rawCity
                 {
@@ -158,36 +97,62 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.city = "광주"
                 case "Daejeon":
                     self.city = "대전"
-                case "Ulsan":
-                    self.city = "울산"
                 case "Gyeonggi-do":
                     self.city = "경기"
                 case "Gangwon":
                     self.city = "강원"
-                case "Chungbuk":
+                case "North Chungcheong":
                     self.city = "충북"
-                case "Chungnam":
+                case "South Chungcheong":
                     self.city = "충남"
-                case "Jeonbuk":
+                case "North Jeolla":
                     self.city = "전북"
-                case "Jeonnam":
+                case "South Jeolla":
                     self.city = "전남"
-                case "Kyungbuk":
+                case "North Gyeongsan":
                     self.city = "경북"
-                case "Gyeongnam":
+                case "South Gyeongsang":
                     self.city = "경남"
                 case "Jeju":
                     self.city = "제주"
-                case "Sejong":
-                    self.city = "세종"
                 default:
                     self.city = "서울"
                 }
             }
+            
+            self.dataFromAirKorea = DataFromAirKorea(city: self.city, completeHandler: {
+                self.currentLocationLabel?.text = self.city
+                self.overallAirLabel?.text = self.dataFromAirKorea?.dataOne?.dataTwo?.khai
+                self.fineDustLabel?.text =  "미세 먼지 : " + (self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)! + " ㎍/m3"
+                self.superDustLabel?.text = "초미세 먼지 : " + (self.dataFromAirKorea?.dataOne?.dataTwo?.pm25)! + " ㎍/m3"
+                
+                if 0 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 30 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                } else if 30 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 80 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
+                    self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+                } else if 80 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 150 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+                } else if 150 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
+                {
+                    self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                } else
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)                    
+                }
+                
+            })
+            
+            self.dataFromAirKorea2 = DataFromAirKorea2(city: self.city, completeHandler: {
+                self.predictLabel?.text = "내일 : " + "보통" + " / 모레 : " + "보통"
+            })
         }
-        
-        
-        
-        
     }
 }
