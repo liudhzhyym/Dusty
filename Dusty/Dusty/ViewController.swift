@@ -12,17 +12,21 @@ import CoreLocation
 class ViewController: UIViewController, CLLocationManagerDelegate
 {
     @IBOutlet var backgroundView: UIView?
-    @IBOutlet weak var currentLocationLabel: UILabel?
     @IBOutlet weak var overallAirLabel: UILabel?
     @IBOutlet weak var fineDustLabel: UILabel?
     @IBOutlet weak var superDustLabel: UILabel?
     @IBOutlet weak var predictLabel: UILabel?
-    @IBOutlet weak var todayResultLabel: UITextView?
+    @IBOutlet weak var todayResultLabel: UITextView!
+    @IBOutlet weak var tableView: UITableView!
     
     lazy var locationManager = CLLocationManager()
-    var city: String = "서울"
+    var city: String?
     var dataFromAirKorea: DataFromAirKorea?
     var dataFromAirKorea2: DataFromAirKorea2?
+    var baseCity: [String] = []
+    var searchCity: [String] = []
+    var searchTerm: String?
+    var specificCity: String?
     
     override func viewDidLoad()
     {
@@ -32,7 +36,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        load()
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "도시 세부 검색"
+        definesPresentationContext = true
+        self.navigationItem.searchController = searchController
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        searchCity = baseCity
+        
+        location()        
     }
     
     override func didReceiveMemoryWarning()
@@ -46,43 +61,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         locationManager.stopUpdatingLocation()
     }
     
-    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?) -> Void )
-    {
-        // Use the last reported location.
-        if let lastLocation = self.locationManager.location
-        {
-            let geocoder = CLGeocoder()
-            
-            // Look up the location and pass it to the completion handler
-            geocoder.reverseGeocodeLocation(lastLocation,
-                                            completionHandler: { (placemarks, error) in
-                                                if error == nil
-                                                {
-                                                    let firstLocation = placemarks?[0]
-                                                    completionHandler(firstLocation)
-                                                }
-                                                else 
-                                                {
-                                                    completionHandler(nil)
-                                                }
-            })
-        }
-        else
-        {
-            completionHandler(nil)
-        }
-    }
-    
-    @IBAction func reloadLocationButton(_ sender: Any)
-    {
-        load()
-    }
-    
-    func load()
+    func location()
     {
         lookUpCurrentLocation { (placemark) in
             if let rawCity = placemark?.administrativeArea
             {
+                print(rawCity)
                 switch rawCity
                 {
                 case "Seoul":
@@ -109,50 +93,170 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.city = "전북"
                 case "South Jeolla":
                     self.city = "전남"
-                case "North Gyeongsan":
+                case "North Gyeongsang":
                     self.city = "경북"
                 case "South Gyeongsang":
                     self.city = "경남"
                 case "Jeju":
                     self.city = "제주"
                 default:
-                    self.city = "서울"
+                    self.city = "위치 확인 불가"
                 }
+                
+                self.load()
+            } else
+            {
+                self.city = "위치 확인 불가"
+                self.load()
+            }
+        }
+    }
+    
+    func load()
+    {
+        self.dataFromAirKorea = DataFromAirKorea(city: self.city, specificCity: self.specificCity, completeHandler: {
+            
+            guard let baseCity = self.dataFromAirKorea?.dataOne?.dataTwo?.specificCityArray else { return }
+            self.baseCity = baseCity
+            
+            self.navigationController?.navigationBar.topItem?.title = self.city
+            
+            if let specificCity = self.specificCity
+            {
+                self.navigationController?.navigationBar.topItem?.title = specificCity
             }
             
-            self.dataFromAirKorea = DataFromAirKorea(city: self.city, completeHandler: {
-                self.currentLocationLabel?.text = self.city
-                self.overallAirLabel?.text = self.dataFromAirKorea?.dataOne?.dataTwo?.khai
-                self.fineDustLabel?.text =  "미세 먼지 : " + (self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)! + " ㎍/m3"
-                self.superDustLabel?.text = "초미세 먼지 : " + (self.dataFromAirKorea?.dataOne?.dataTwo?.pm25)! + " ㎍/m3"
-                
-                if 0 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 30 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
-                } else if 30 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 80 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
-                    self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
-                } else if 80 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)! && 150 > Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
-                } else if 150 <= Double((self.dataFromAirKorea?.dataOne?.dataTwo?.pm10)!)!
-                {
-                    self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
-                } else
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)                    
-                }
-                
-            })
+            guard let khai = self.dataFromAirKorea?.dataOne?.dataTwo?.khai else { return }
+            self.overallAirLabel?.text = khai
             
-            self.dataFromAirKorea2 = DataFromAirKorea2(city: self.city, completeHandler: {
-                self.predictLabel?.text = "내일 : " + "보통" + " / 모레 : " + "보통"
+            guard let pm10 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm10 else { return }
+            self.fineDustLabel?.text =  "미세 먼지 : " + pm10 + " ㎍/m3"
+            
+            guard let pm25 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm25 else { return }
+            self.superDustLabel?.text =  "미세 먼지 : " + pm25 + " ㎍/m3"
+            
+            if 0 <= Double(pm10)! && 30 > Double(pm10)!
+            {
+                self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+            } else if 30 <= Double(pm10)! && 80 > Double(pm10)!
+            {
+                self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
+                self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+            } else if 80 <= Double(pm10)! && 150 > Double(pm10)!
+            {
+                self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+            } else if 150 <= Double(pm10)!
+            {
+                self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+            } else
+            {
+                self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+            }
+        })
+        
+        self.dataFromAirKorea2 = DataFromAirKorea2(city: self.city, completeHandler: {
+            self.predictLabel?.text = "내일 : " + "보통" + " / 모레 : " + "보통"
+        })
+    }
+    
+    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?) -> Void )
+    {
+        if let lastLocation = self.locationManager.location
+        {
+            let geocoder = CLGeocoder()
+            
+            geocoder.reverseGeocodeLocation(lastLocation,
+                                            completionHandler: { (placemarks, error) in
+                                                if error == nil
+                                                {
+                                                    let firstLocation = placemarks?[0]
+                                                    completionHandler(firstLocation)
+                                                }
+                                                else
+                                                {
+                                                    completionHandler(nil)
+                                                }
             })
         }
+        else
+        {
+            completionHandler(nil)
+        }
+    }
+    
+    @IBAction func currentLocation(_ sender: Any)
+    {
+        location()
+    }
+    
+}
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return searchCity.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = searchCity[indexPath.row]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        specificCity = (cell.textLabel?.text)!
+        location()
+        self.navigationItem.searchController?.isActive = false
+    }
+}
+
+extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating
+{
+    func willPresentSearchController(_ searchController: UISearchController)
+    {
+        tableView.alpha = 1.0
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController)
+    {
+        tableView.alpha = 0.0
+        filterContent(searchText: "")
+    }
+    
+    func filterContent(searchText: String)
+    {
+        if searchText != ""
+        {
+            findMatches(searchText)
+        } else
+        {
+            searchCity = baseCity
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func findMatches(_ searchText: String)
+    {
+        let filtered = baseCity.filter
+        {
+            return $0.range(of: searchText, options: .caseInsensitive) != nil
+        }
+        
+        self.searchCity = filtered
+    }
+
+    func updateSearchResults(for searchController: UISearchController)
+    {
+        filterContent(searchText: searchController.searchBar.text!)
     }
 }

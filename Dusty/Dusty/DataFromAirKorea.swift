@@ -15,15 +15,15 @@ class DataFromAirKorea
     var dataOne: DataOne?
     var dataDic: [String:Any]?
     
-    init(city: String, completeHandler: @escaping ()->Void)
+    init(city: String?, specificCity: String?, completeHandler: @escaping ()->Void)
     {
-        let urlStr = city
+        let urlStr = city!
         let encoded = urlStr.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         let url = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=\(encoded)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json")
-        
+    
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
-        
+    
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
             if let data = data
@@ -32,7 +32,7 @@ class DataFromAirKorea
                 {
                     let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                     self.dataDic = dic
-                    self.dataOne = DataOne(dataDic: self.dataDic!)
+                    self.dataOne = DataOne(specificCity: specificCity, dataDic: self.dataDic!)
                 } catch let error
                 {
                     print("\(error.localizedDescription)")
@@ -51,13 +51,12 @@ class DataOne
     var dataTwo: DataTwo?
     var data: [Any]?
     
-    init?(dataDic: [String:Any])
-    {
-        
+    init?(specificCity: String?, dataDic: [String:Any])
+    {        
         guard let data = dataDic["list"] as? [[String:Any]] else { return }
         self.data = data
         
-        dataTwo = DataTwo(dataDic: data)
+        dataTwo = DataTwo(specificCity: specificCity, dataDic: data)
     }
 }
 
@@ -66,19 +65,57 @@ class DataTwo
     var pm10: String?
     var pm25: String?
     var khai: String?
+    var specificCity: String?
+    var specificCityArray: [String] = []
     
-    init?(dataDic: [[String:Any]])
+    init?(specificCity: String?, dataDic: [[String:Any]])
     {
+        self.specificCity = specificCity
+        
+        if specificCity != nil
+        {
+            specificCityArray.append(specificCity!)
+        }
+        
         if !(dataDic.isEmpty)
         {
-            guard let pm10 = dataDic[0]["pm10Value"] as? String else { return }
-            self.pm10 = pm10
+            if self.specificCity != nil
+            {
+                for data in dataDic
+                {
+                    specificCityArray.append(data["stationName"] as! String)
+                    
+                    if self.specificCity == data["stationName"] as? String
+                    {                        
+                        guard let pm10 = data["pm10Value"] as? String else { return }
+                        self.pm10 = pm10
+                        
+                        guard let pm25 = data["pm25Value"] as? String else { return }
+                        self.pm25 = pm25
+                        
+                        guard let khai = data["khaiValue"] as? String else { return }
+                        self.khai = khai
+                    }
+                }
+            } else
+            {
+                for data in dataDic
+                {
+                    specificCityArray.append(data["stationName"] as! String)
+                }
+                
+                guard let pm10 = dataDic[0]["pm10Value"] as? String else { return }
+                self.pm10 = pm10
+                
+                guard let pm25 = dataDic[0]["pm25Value"] as? String else { return }
+                self.pm25 = pm25
+                
+                guard let khai = dataDic[0]["khaiValue"] as? String else { return }
+                self.khai = khai
+            }
             
-            guard let pm25 = dataDic[0]["pm25Value"] as? String else { return }
-            self.pm25 = pm25
             
-            guard let khai = dataDic[0]["khaiValue"] as? String else { return }
-            self.khai = khai
+            
         }
     }
 }
@@ -88,7 +125,7 @@ class DataFromAirKorea2
     var dataThree: DataThree?
     var dataDic2: [String:Any]?
     
-    init(city: String, completeHandler: @escaping ()->Void)
+    init(city: String?, completeHandler: @escaping ()->Void)
     {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
