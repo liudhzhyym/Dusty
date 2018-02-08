@@ -65,17 +65,19 @@ class DataTwo
     var pm10: String?
     var pm25: String?
     var khai: String?
+    var sumPm10: Int = 0
+    var sumPm25: Int = 0
+    var sumKhai: Int = 0
+    var countPm10: Int = 0
+    var countPm25: Int = 0
+    var countKhai: Int = 0
     var specificCity: String?
+    var tempArray: [String] = []
     var specificCityArray: [String] = []
     
     init?(specificCity: String?, dataDic: [[String:Any]])
     {
         self.specificCity = specificCity
-        
-        if specificCity != nil
-        {
-            specificCityArray.append(specificCity!)
-        }
         
         if !(dataDic.isEmpty)
         {
@@ -83,7 +85,11 @@ class DataTwo
             {
                 for data in dataDic
                 {
-                    specificCityArray.append(data["stationName"] as! String)
+                    if let stationName = data["stationName"] as? String
+                    {
+                        tempArray.append(stationName)
+                        self.specificCityArray = tempArray.sorted(by: <)
+                    }
                     
                     if self.specificCity == data["stationName"] as? String
                     {                        
@@ -101,23 +107,65 @@ class DataTwo
             {
                 for data in dataDic
                 {
-                    specificCityArray.append(data["stationName"] as! String)
+                    if let stationName = data["stationName"] as? String
+                    {
+                        tempArray.append(stationName)
+                        self.specificCityArray = tempArray.sorted(by: <)
+                    }
+                    
+                    if let d1 = data["pm10Value"] as? String
+                    {
+                        if let pm10 = Int(d1)
+                        {
+                            self.sumPm10 += pm10
+                            self.countPm10 += 1
+                            self.pm10 = "\(sumPm10 / countPm10)"
+                        }
+                    }
+                    
+                    if let d2 = data["pm25Value"] as? String
+                    {
+                        if let pm25 = Int(d2)
+                        {
+                            self.sumPm25 += pm25
+                            self.countPm25 += 1
+                            self.pm25 = "\(sumPm25 / countPm25)"
+                        }
+                    }
+                    
+                    if let d3 = data["khaiValue"] as? String
+                    {
+                        if let khai = Int(d3)
+                        {
+                            self.sumKhai += khai
+                            self.countKhai += 1
+                            self.khai = "\(sumKhai / countKhai)"
+                        }
+                    }
                 }
-                
-                guard let pm10 = dataDic[0]["pm10Value"] as? String else { return }
-                self.pm10 = pm10
-                
-                guard let pm25 = dataDic[0]["pm25Value"] as? String else { return }
-                self.pm25 = pm25
-                
-                guard let khai = dataDic[0]["khaiValue"] as? String else { return }
-                self.khai = khai
             }
-            
-            
-            
         }
     }
+    
+    func getNumber(number: Any?) -> NSNumber
+    {
+        guard let statusNumber:NSNumber = number as? NSNumber else
+        {
+            guard let statString:String = number as? String else
+            {
+                return 0
+            }
+            if let myInteger = Int(statString)
+            {
+                return NSNumber(value:myInteger)
+            }
+            else{
+                return 0
+            }
+        }
+        return statusNumber
+    }
+
 }
 
 class DataFromAirKorea2
@@ -125,7 +173,7 @@ class DataFromAirKorea2
     var dataThree: DataThree?
     var dataDic2: [String:Any]?
     
-    init(city: String?, completeHandler: @escaping ()->Void)
+    init(index1: Int, index2: Int, completeHandler: @escaping ()->Void)
     {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -143,7 +191,7 @@ class DataFromAirKorea2
                 {
                     let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                     self.dataDic2 = dic
-                    self.dataThree = DataThree(dataDic: self.dataDic2!)
+                    self.dataThree = DataThree(index1: index1, index2: index2, dataDic: self.dataDic2!)
                 } catch let error
                 {
                     print("\(error.localizedDescription)")
@@ -163,12 +211,12 @@ class DataThree
     var dataFour: DataFour?
     var data: [Any]?
     
-    init?(dataDic: [String:Any])
+    init?(index1: Int, index2: Int, dataDic: [String:Any])
     {
         guard let data = dataDic["list"] as? [[String:Any]] else { return }
         self.data = data
         
-        dataFour = DataFour(dataDic: data)
+        dataFour = DataFour(index1: index1, index2: index2, dataDic: data)
     }
     
 }
@@ -176,12 +224,12 @@ class DataThree
 class DataFour
 {
     var grade: String?
+    var str: String?
+    var str1 : String?
     
-    let city = "서울"
-    
-    init?(dataDic: [[String:Any]])
+    init?(index1: Int, index2: Int, dataDic: [[String:Any]])
     {
-        guard let grade = dataDic[0]["informGrade"] as? String else { return }
-        
+        guard let grade = dataDic[1]["informGrade"] as? String else { return }
+        str = "\(grade[grade.index(grade.startIndex, offsetBy: index1)])" + "\(grade[grade.index(grade.startIndex, offsetBy: index2)])"        
     }
 }

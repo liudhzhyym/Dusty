@@ -35,6 +35,7 @@
 		EFBE6268202BD09D008361B3 /* Gyeongbuk.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gyeongbuk.gpx; sourceTree = "<group>"; };
 		EFBE6269202BD377008361B3 /* Ulsan.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Ulsan.gpx; sourceTree = "<group>"; };
 		EFBE626A202BD41E008361B3 /* Saejong.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Saejong.gpx; sourceTree = "<group>"; };
+		EFBE626B202C1F9D008361B3 /* Incheon.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Incheon.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +101,7 @@
 				EFBE6267202BB889008361B3 /* Seoul.gpx */,
 				EFBE6269202BD377008361B3 /* Ulsan.gpx */,
 				EFBE626A202BD41E008361B3 /* Saejong.gpx */,
+				EFBE626B202C1F9D008361B3 /* Incheon.gpx */,
 			);
 			path = Dusty;
 			sourceTree = "<group>";
@@ -381,7 +383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -397,7 +399,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

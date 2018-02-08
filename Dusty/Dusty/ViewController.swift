@@ -27,6 +27,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     var searchCity: [String] = []
     var searchTerm: String?
     var specificCity: String?
+    var predictIndex1: Int?
+    var predictIndex2: Int?
     
     override func viewDidLoad()
     {
@@ -47,7 +49,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         self.navigationController?.navigationBar.prefersLargeTitles = true
         searchCity = baseCity
         
-        location()        
+        location()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func didReceiveMemoryWarning()
@@ -66,41 +72,70 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         lookUpCurrentLocation { (placemark) in
             if let rawCity = placemark?.administrativeArea
             {
-                print(rawCity)
                 switch rawCity
                 {
                 case "Seoul":
                     self.city = "서울"
+                    self.predictIndex1 = 5
+                    self.predictIndex2 = 6
                 case "Busan":
                     self.city = "부산"
+                    self.predictIndex1 = 77
+                    self.predictIndex2 = 78
                 case "Daegu":
                     self.city = "대구"
+                    self.predictIndex1 = 69
+                    self.predictIndex2 = 70
                 case "Incheon":
                     self.city = "인천"
+                    self.predictIndex1 = 153
+                    self.predictIndex2 = 154
                 case "Gwangju":
                     self.city = "광주"
+                    self.predictIndex1 = 37
+                    self.predictIndex2 = 38
                 case "Daejeon":
                     self.city = "대전"
+                    self.predictIndex1 = 109
+                    self.predictIndex2 = 110
                 case "Gyeonggi-do":
                     self.city = "경기"
+                    self.predictIndex1 = 135
+                    self.predictIndex2 = 136
                 case "Gangwon":
                     self.city = "강원"
                 case "North Chungcheong":
                     self.city = "충북"
+                    self.predictIndex1 = 93
+                    self.predictIndex2 = 94
                 case "South Chungcheong":
                     self.city = "충남"
+                    self.predictIndex1 = 85
+                    self.predictIndex2 = 86
                 case "North Jeolla":
                     self.city = "전북"
+                    self.predictIndex1 = 29
+                    self.predictIndex2 = 30
                 case "South Jeolla":
                     self.city = "전남"
+                    self.predictIndex1 = 21
+                    self.predictIndex2 = 22
                 case "North Gyeongsang":
                     self.city = "경북"
+                    self.predictIndex1 = 53
+                    self.predictIndex2 = 54
                 case "South Gyeongsang":
                     self.city = "경남"
+                    self.predictIndex1 = 45
+                    self.predictIndex2 = 46
                 case "Jeju":
                     self.city = "제주"
+                    self.predictIndex1 = 13
+                    self.predictIndex2 = 14
                 default:
                     self.city = "위치 확인 불가"
+                    self.predictIndex1 = 0
+                    self.predictIndex2 = 0
                 }
                 
                 self.load()
@@ -130,37 +165,50 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             self.overallAirLabel?.text = khai
             
             guard let pm10 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm10 else { return }
-            self.fineDustLabel?.text =  "미세 먼지 : " + pm10 + " ㎍/m3"
+            self.fineDustLabel?.text =  "미세먼지 : " + pm10 + " ㎍/m3"
             
             guard let pm25 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm25 else { return }
-            self.superDustLabel?.text =  "미세 먼지 : " + pm25 + " ㎍/m3"
+            self.superDustLabel?.text =  "초미세먼지 : " + pm25 + " ㎍/m3"
             
-            if 0 <= Double(pm10)! && 30 > Double(pm10)!
+
+            if let pm100 = Int(pm10)
             {
-                self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
-            } else if 30 <= Double(pm10)! && 80 > Double(pm10)!
-            {
-                self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
-                self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
-            } else if 80 <= Double(pm10)! && 150 > Double(pm10)!
-            {
-                self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
-            } else if 150 <= Double(pm10)!
-            {
-                self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                if 0 <= pm100 && 30 > pm100
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                } else if 30 <= pm100 && 80 > pm100
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
+                    self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+                } else if 80 <= pm100 && 150 > pm100
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+                } else if 150 <= pm100
+                {
+                    self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                } else
+                {
+                    self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                }
             } else
             {
                 self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                 self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
             }
+            
+            self.specificCity = nil
         })
         
-        self.dataFromAirKorea2 = DataFromAirKorea2(city: self.city, completeHandler: {
-            self.predictLabel?.text = "내일 : " + "보통" + " / 모레 : " + "보통"
-        })
+        if let index1 = self.predictIndex1, let index2 = self.predictIndex2
+        {
+            self.dataFromAirKorea2 = DataFromAirKorea2(index1: index1, index2: index2, completeHandler: {
+                self.predictLabel?.text = "내일 미세먼지 : " + "\(self.dataFromAirKorea2?.dataThree?.dataFour?.str ?? "--")"
+            })
+        }
     }
     
     func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?) -> Void )
@@ -186,6 +234,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         {
             completionHandler(nil)
         }
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+        {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification)
+    {
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
     @IBAction func currentLocation(_ sender: Any)
