@@ -162,7 +162,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="--" largeTitleDisplayMode="always" id="HCU-3p-RJN">
-                        <barButtonItem key="rightBarButtonItem" title="현재위치" image="location" id="nk3-Vu-qcg">
+                        <barButtonItem key="rightBarButtonItem" image="location" id="nk3-Vu-qcg">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="currentLocation:" destination="BYZ-38-t0r" id="xJy-dj-GQW"/>

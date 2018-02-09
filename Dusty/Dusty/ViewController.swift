@@ -179,7 +179,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
                 } else if 30 <= pm100 && 80 > pm100
                 {
-                    self.todayResultLabel?.text = "미세먼지 농도가 보통이에요"
+                    self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
                     self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
                 } else if 80 <= pm100 && 150 > pm100
                 {
@@ -238,15 +238,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     
     @objc func keyboardWillShow(_ notification:Notification)
     {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
-        {
-            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
-        }
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardFrame.size.height, 0)
     }
     
     @objc func keyboardWillHide(_ notification:Notification)
     {
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets.zero
     }
     
     @IBAction func currentLocation(_ sender: Any)
