@@ -43,7 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         searchController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "도시 세부 검색"
+        searchController.searchBar.placeholder = "위치 검색"
         definesPresentationContext = true
         self.navigationItem.searchController = searchController
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -134,8 +134,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.predictIndex2 = 14
                 default:
                     self.city = "위치 확인 불가"
-                    self.predictIndex1 = 0
-                    self.predictIndex2 = 0
+                    self.predictIndex1 = nil
+                    self.predictIndex2 = nil
                 }
                 
                 self.load()
@@ -155,49 +155,77 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             self.baseCity = baseCity
             
             self.navigationController?.navigationBar.topItem?.title = self.city
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(self.city, forKey: "city")
             
             if let specificCity = self.specificCity
             {
                 self.navigationController?.navigationBar.topItem?.title = specificCity
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(specificCity, forKey: "city")
             }
             
-            guard let khai = self.dataFromAirKorea?.dataOne?.dataTwo?.khai else { return }
-            self.overallAirLabel?.text = khai
-            
-            guard let pm10 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm10 else { return }
-            self.fineDustLabel?.text =  "미세먼지 : " + pm10 + " ㎍/m3"
-            
-            guard let pm25 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm25 else { return }
-            self.superDustLabel?.text =  "초미세먼지 : " + pm25 + " ㎍/m3"
-            
-
-            if let pm100 = Int(pm10)
+            if let khai = self.dataFromAirKorea?.dataOne?.dataTwo?.khai
             {
-                if 0 <= pm100 && 30 > pm100
+                self.overallAirLabel?.text = khai
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(khai, forKey: "khai")
+            } else
+            {
+                self.overallAirLabel?.text = "-"
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("-", forKey: "khai")
+            }
+            
+            if let pm10 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm10
+            {
+                self.fineDustLabel?.text =  "미세먼지 : " + pm10 + " ㎍/m3"
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 : " + pm10 + " ㎍/m3", forKey: "pm10")
+                
+                if let pm100 = Int(pm10)
                 {
-                    self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
-                } else if 30 <= pm100 && 80 > pm100
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
-                } else if 80 <= pm100 && 150 > pm100
-                {
-                    self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
-                } else if 150 <= pm100
-                {
-                    self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                    self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                    if 0 <= pm100 && 30 > pm100
+                    {
+                        self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
+                    } else if 30 <= pm100 && 80 > pm100
+                    {
+                        self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                        self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
+                    } else if 80 <= pm100 && 150 > pm100
+                    {
+                        self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                        self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
+                    } else if 150 <= pm100
+                    {
+                        self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                        self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
+                    } else
+                    {
+                        self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
+                    }
                 } else
                 {
                     self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                     self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                    UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                 }
             } else
             {
-                self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                self.fineDustLabel?.text =  "미세먼지 : - ㎍/m3"
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 : - ㎍/m3", forKey: "pm10")
+            }
+            
+            if let pm25 = self.dataFromAirKorea?.dataOne?.dataTwo?.pm25
+            {
+                self.superDustLabel?.text =  "초미세먼지 : " + pm25 + " ㎍/m3"
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("초미세먼지 : " + pm25 + " ㎍/m3", forKey: "pm25")
+            } else
+            {
+                self.superDustLabel?.text =  "초미세먼지 : - ㎍/m3"
+                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("초미세먼지 : - ㎍/m3", forKey: "pm25")
             }
             
             self.specificCity = nil

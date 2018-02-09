@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; };
 		EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DC47620285F73000FBA5A /* DesignableView.swift */; };
+		EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF74529A202D388900B213D3 /* NotificationCenter.framework */; };
+		EF74529E202D388900B213D3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74529D202D388900B213D3 /* TodayViewController.swift */; };
+		EF7452A1202D388900B213D3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74529F202D388900B213D3 /* MainInterface.storyboard */; };
+		EF7452A5202D388900B213D3 /* Dusty Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EF745299202D388900B213D3 /* Dusty Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EF7452AB202D3BC000B213D3 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7452AA202D3BC000B213D3 /* location.png */; };
+		EF7BB7C7202D4F1900892AA2 /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; };
 		EF92C7192028494300204A57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C7182028494300204A57 /* AppDelegate.swift */; };
 		EF92C71B2028494300204A57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C71A2028494300204A57 /* ViewController.swift */; };
 		EF92C71E2028494300204A57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF92C71C2028494300204A57 /* Main.storyboard */; };
@@ -17,12 +23,44 @@
 		EF9D93C4202893F600DEF489 /* DataFromAirKorea.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EF7452A3202D388900B213D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF92C70D2028494300204A57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF745298202D388900B213D3;
+			remoteInfo = "Dusty Widget";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EF7452A9202D388900B213D3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EF7452A5202D388900B213D3 /* Dusty Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dusty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.debug.xcconfig"; sourceTree = "<group>"; };
 		88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.release.xcconfig"; sourceTree = "<group>"; };
 		EF4DC47620285F73000FBA5A /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		EF69048F2029A57400E83F84 /* Gyeonggi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gyeonggi.gpx; sourceTree = "<group>"; };
+		EF745299202D388900B213D3 /* Dusty Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Dusty Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF74529A202D388900B213D3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		EF74529D202D388900B213D3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		EF7452A0202D388900B213D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		EF7452A2202D388900B213D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF7452AA202D3BC000B213D3 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		EF7BB7C8202D501500892AA2 /* Dusty Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dusty Widget.entitlements"; sourceTree = "<group>"; };
+		EF7BB7C9202D504B00892AA2 /* Dusty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dusty.entitlements; sourceTree = "<group>"; };
 		EF92C7152028494300204A57 /* Dusty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dusty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF92C7182028494300204A57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF92C71A2028494300204A57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +77,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EF745296202D388900B213D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF7BB7C7202D4F1900892AA2 /* Pods_Dusty.framework in Frameworks */,
+				EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EF92C7122028494300204A57 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */,
+				EF74529A202D388900B213D3 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -67,10 +115,36 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EF74529C202D388900B213D3 /* Dusty Widget */ = {
+			isa = PBXGroup;
+			children = (
+				EF7BB7C8202D501500892AA2 /* Dusty Widget.entitlements */,
+				EF74529D202D388900B213D3 /* TodayViewController.swift */,
+				EF74529F202D388900B213D3 /* MainInterface.storyboard */,
+				EF7452A2202D388900B213D3 /* Info.plist */,
+				EF7452AA202D3BC000B213D3 /* location.png */,
+			);
+			path = "Dusty Widget";
+			sourceTree = "<group>";
+		};
+		EF7BB7CA202D50C400892AA2 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				EF69048F2029A57400E83F84 /* Gyeonggi.gpx */,
+				EFBE6268202BD09D008361B3 /* Gyeongbuk.gpx */,
+				EFBE6267202BB889008361B3 /* Seoul.gpx */,
+				EFBE6269202BD377008361B3 /* Ulsan.gpx */,
+				EFBE626A202BD41E008361B3 /* Saejong.gpx */,
+				EFBE626B202C1F9D008361B3 /* Incheon.gpx */,
+			);
+			path = GPX;
+			sourceTree = "<group>";
+		};
 		EF92C70C2028494300204A57 = {
 			isa = PBXGroup;
 			children = (
 				EF92C7172028494300204A57 /* Dusty */,
+				EF74529C202D388900B213D3 /* Dusty Widget */,
 				EF92C7162028494300204A57 /* Products */,
 				D901A389AC17E9369ADEE52C /* Pods */,
 				320E30F1E90DAA1275418098 /* Frameworks */,
@@ -81,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				EF92C7152028494300204A57 /* Dusty.app */,
+				EF745299202D388900B213D3 /* Dusty Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +163,7 @@
 		EF92C7172028494300204A57 /* Dusty */ = {
 			isa = PBXGroup;
 			children = (
+				EF7BB7C9202D504B00892AA2 /* Dusty.entitlements */,
 				EF92C7182028494300204A57 /* AppDelegate.swift */,
 				EF92C71A2028494300204A57 /* ViewController.swift */,
 				EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */,
@@ -96,12 +172,7 @@
 				EF92C71F2028494300204A57 /* Assets.xcassets */,
 				EF92C7212028494300204A57 /* LaunchScreen.storyboard */,
 				EF92C7242028494300204A57 /* Info.plist */,
-				EF69048F2029A57400E83F84 /* Gyeonggi.gpx */,
-				EFBE6268202BD09D008361B3 /* Gyeongbuk.gpx */,
-				EFBE6267202BB889008361B3 /* Seoul.gpx */,
-				EFBE6269202BD377008361B3 /* Ulsan.gpx */,
-				EFBE626A202BD41E008361B3 /* Saejong.gpx */,
-				EFBE626B202C1F9D008361B3 /* Incheon.gpx */,
+				EF7BB7CA202D50C400892AA2 /* GPX */,
 			);
 			path = Dusty;
 			sourceTree = "<group>";
@@ -109,6 +180,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		EF745298202D388900B213D3 /* Dusty Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF7452A6202D388900B213D3 /* Build configuration list for PBXNativeTarget "Dusty Widget" */;
+			buildPhases = (
+				EF745295202D388900B213D3 /* Sources */,
+				EF745296202D388900B213D3 /* Frameworks */,
+				EF745297202D388900B213D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dusty Widget";
+			productName = "Dusty Widget";
+			productReference = EF745299202D388900B213D3 /* Dusty Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		EF92C7142028494300204A57 /* Dusty */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF92C7272028494300204A57 /* Build configuration list for PBXNativeTarget "Dusty" */;
@@ -119,10 +207,12 @@
 				EF92C7132028494300204A57 /* Resources */,
 				B8B1305D3BD4E71EFB01D6CB /* [CP] Embed Pods Frameworks */,
 				9A45D3F03451BC0D54A166B5 /* [CP] Copy Pods Resources */,
+				EF7452A9202D388900B213D3 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EF7452A4202D388900B213D3 /* PBXTargetDependency */,
 			);
 			name = Dusty;
 			productName = Dusty;
@@ -139,9 +229,23 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = macker;
 				TargetAttributes = {
+					EF745298202D388900B213D3 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					EF92C7142028494300204A57 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -159,11 +263,21 @@
 			projectRoot = "";
 			targets = (
 				EF92C7142028494300204A57 /* Dusty */,
+				EF745298202D388900B213D3 /* Dusty Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EF745297202D388900B213D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF7452AB202D3BC000B213D3 /* location.png in Resources */,
+				EF7452A1202D388900B213D3 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EF92C7132028494300204A57 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -231,6 +345,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EF745295202D388900B213D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF74529E202D388900B213D3 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EF92C7112028494300204A57 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,7 +366,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		EF7452A4202D388900B213D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF745298202D388900B213D3 /* Dusty Widget */;
+			targetProxy = EF7452A3202D388900B213D3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		EF74529F202D388900B213D3 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF7452A0202D388900B213D3 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		EF92C71C2028494300204A57 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -264,6 +402,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		EF7452A7202D388900B213D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dusty Widget/Dusty Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 77DCP747V2;
+				INFOPLIST_FILE = "Dusty Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		EF7452A8202D388900B213D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dusty Widget/Dusty Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 77DCP747V2;
+				INFOPLIST_FILE = "Dusty Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		EF92C7252028494300204A57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -375,7 +545,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Dusty/Dusty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = Dusty/Info.plist;
@@ -391,7 +563,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Dusty/Dusty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = Dusty/Info.plist;
@@ -406,6 +580,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EF7452A6202D388900B213D3 /* Build configuration list for PBXNativeTarget "Dusty Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7452A7202D388900B213D3 /* Debug */,
+				EF7452A8202D388900B213D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EF92C7102028494300204A57 /* Build configuration list for PBXProject "Dusty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
