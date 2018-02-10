@@ -49,8 +49,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         self.navigationController?.navigationBar.prefersLargeTitles = true
         searchCity = baseCity
         
-        location()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -64,7 +62,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         guard (locations.last?.coordinate) != nil else { return }
+        location()
         locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
+    {
+        if (status == CLAuthorizationStatus.denied)
+        {
+            self.navigationController?.navigationBar.topItem?.title = "위치 접근 불가"
+        }
     }
     
     func location()
@@ -141,7 +148,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                 self.load()
             } else
             {
-                self.city = "위치 확인 불가"
+                self.city = "위치 시스템 고장"
                 self.load()
             }
         }
@@ -279,7 +286,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     
     @IBAction func currentLocation(_ sender: Any)
     {
-        location()
+        locationManager.startUpdatingLocation()
     }
     
 }

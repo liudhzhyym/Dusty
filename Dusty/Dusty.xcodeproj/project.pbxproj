@@ -52,7 +52,7 @@
 		5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.debug.xcconfig"; sourceTree = "<group>"; };
 		88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.release.xcconfig"; sourceTree = "<group>"; };
 		EF4DC47620285F73000FBA5A /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
-		EF69048F2029A57400E83F84 /* Gyeonggi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gyeonggi.gpx; sourceTree = "<group>"; };
+		EF69048F2029A57400E83F84 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		EF745299202D388900B213D3 /* Dusty Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Dusty Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF74529A202D388900B213D3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		EF74529D202D388900B213D3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -69,11 +69,6 @@
 		EF92C7222028494300204A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF92C7242028494300204A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFromAirKorea.swift; sourceTree = "<group>"; };
-		EFBE6267202BB889008361B3 /* Seoul.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Seoul.gpx; sourceTree = "<group>"; };
-		EFBE6268202BD09D008361B3 /* Gyeongbuk.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gyeongbuk.gpx; sourceTree = "<group>"; };
-		EFBE6269202BD377008361B3 /* Ulsan.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Ulsan.gpx; sourceTree = "<group>"; };
-		EFBE626A202BD41E008361B3 /* Saejong.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Saejong.gpx; sourceTree = "<group>"; };
-		EFBE626B202C1F9D008361B3 /* Incheon.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Incheon.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,19 +122,6 @@
 			path = "Dusty Widget";
 			sourceTree = "<group>";
 		};
-		EF7BB7CA202D50C400892AA2 /* GPX */ = {
-			isa = PBXGroup;
-			children = (
-				EF69048F2029A57400E83F84 /* Gyeonggi.gpx */,
-				EFBE6268202BD09D008361B3 /* Gyeongbuk.gpx */,
-				EFBE6267202BB889008361B3 /* Seoul.gpx */,
-				EFBE6269202BD377008361B3 /* Ulsan.gpx */,
-				EFBE626A202BD41E008361B3 /* Saejong.gpx */,
-				EFBE626B202C1F9D008361B3 /* Incheon.gpx */,
-			);
-			path = GPX;
-			sourceTree = "<group>";
-		};
 		EF92C70C2028494300204A57 = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +154,7 @@
 				EF92C71F2028494300204A57 /* Assets.xcassets */,
 				EF92C7212028494300204A57 /* LaunchScreen.storyboard */,
 				EF92C7242028494300204A57 /* Info.plist */,
-				EF7BB7CA202D50C400892AA2 /* GPX */,
+				EF69048F2029A57400E83F84 /* Location.gpx */,
 			);
 			path = Dusty;
 			sourceTree = "<group>";

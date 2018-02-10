@@ -8,8 +8,6 @@
 
 import Foundation
 
-// WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D
-
 class DataFromAirKorea
 {
     var dataOne: DataOne?
@@ -20,7 +18,7 @@ class DataFromAirKorea
         let urlStr = city!
         let encoded = urlStr.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         let url = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=\(encoded)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json")
-    
+        
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
     
