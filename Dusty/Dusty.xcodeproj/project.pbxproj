@@ -391,6 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = "Dusty Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -407,6 +408,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = "Dusty Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";

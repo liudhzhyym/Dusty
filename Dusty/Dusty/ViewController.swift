@@ -143,6 +143,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.city = "위치 확인 불가"
                     self.predictIndex1 = nil
                     self.predictIndex2 = nil
+                    self.navigationController?.navigationBar.topItem?.title = placemark?.administrativeArea
                 }
                 
                 self.load()
