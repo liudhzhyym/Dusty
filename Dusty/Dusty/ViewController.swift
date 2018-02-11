@@ -81,61 +81,77 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             {
                 switch rawCity
                 {
-                case "Seoul":
+                case "Seoul",
+                     "서울특별시":
                     self.city = "서울"
                     self.predictIndex1 = 5
                     self.predictIndex2 = 6
-                case "Busan":
+                case "Busan",
+                     "부산광역시":
                     self.city = "부산"
                     self.predictIndex1 = 77
                     self.predictIndex2 = 78
-                case "Daegu":
+                case "Daegu",
+                     "대구광역시":
                     self.city = "대구"
                     self.predictIndex1 = 69
                     self.predictIndex2 = 70
-                case "Incheon":
+                case "Incheon",
+                     "인천광역시":
                     self.city = "인천"
                     self.predictIndex1 = 153
                     self.predictIndex2 = 154
-                case "Gwangju":
+                case "Gwangju",
+                     "광주광역시":
                     self.city = "광주"
                     self.predictIndex1 = 37
                     self.predictIndex2 = 38
-                case "Daejeon":
+                case "Daejeon",
+                     "대전광역시":
                     self.city = "대전"
                     self.predictIndex1 = 109
                     self.predictIndex2 = 110
-                case "Gyeonggi-do":
+                case "Gyeonggi-do",
+                     "경기도":
                     self.city = "경기"
                     self.predictIndex1 = 135
                     self.predictIndex2 = 136
-                case "Gangwon":
+                case "Gangwon",
+                     "강원도":
                     self.city = "강원"
-                case "North Chungcheong":
+                case "North Chungcheong",
+                     "충청북도":
                     self.city = "충북"
                     self.predictIndex1 = 93
                     self.predictIndex2 = 94
-                case "South Chungcheong":
+                case "South Chungcheong",
+                     "충청남도":
                     self.city = "충남"
                     self.predictIndex1 = 85
                     self.predictIndex2 = 86
-                case "North Jeolla":
+                case "North Jeolla",
+                     "전라북도":
                     self.city = "전북"
                     self.predictIndex1 = 29
                     self.predictIndex2 = 30
-                case "South Jeolla":
+                case "South Jeolla",
+                     "전라남도":
                     self.city = "전남"
                     self.predictIndex1 = 21
                     self.predictIndex2 = 22
-                case "North Gyeongsang":
+                case "North Gyeongsang",
+                     "경상북도":
                     self.city = "경북"
                     self.predictIndex1 = 53
                     self.predictIndex2 = 54
-                case "South Gyeongsang":
+                case "South Gyeongsang",
+                     "경상남도":
                     self.city = "경남"
                     self.predictIndex1 = 45
                     self.predictIndex2 = 46
-                case "Jeju":
+                case "Jeju",
+                     "제주도",
+                     "제주시":
                     self.city = "제주"
                     self.predictIndex1 = 13
                     self.predictIndex2 = 14
@@ -143,7 +159,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.city = "위치 확인 불가"
                     self.predictIndex1 = nil
                     self.predictIndex2 = nil
-                    self.navigationController?.navigationBar.topItem?.title = placemark?.administrativeArea
                 }
                 
                 self.load()
