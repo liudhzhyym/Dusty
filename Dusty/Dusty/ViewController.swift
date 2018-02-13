@@ -45,9 +45,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "위치 검색"
         definesPresentationContext = true
-        self.navigationItem.searchController = searchController
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         searchCity = baseCity
+        
+        if #available(iOS 11.0, *)
+        {
+            self.navigationItem.searchController = searchController
+        } else
+        {
+            print("need iOS 11.0 or higher")
+        }
+        
+        if #available(iOS 11.0, *)
+        {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        } else
+        {
+            print("need iOS 11.0 or higher")
+        }
+        
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -327,7 +343,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         specificCity = (cell.textLabel?.text)!
         location()
-        self.navigationItem.searchController?.isActive = false
+        
+        if #available(iOS 11.0, *)
+        {
+            self.navigationItem.searchController?.isActive = false
+        } else
+        {
+            print("need iOS 11.0 or higher")
+        }
     }
 }
 
