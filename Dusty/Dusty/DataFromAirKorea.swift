@@ -17,9 +17,9 @@ class DataFromAirKorea
     {
         let urlStr = city!
         let encoded = urlStr.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
-        let url = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=\(encoded)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json")
+        guard let url = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=\(encoded)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json") else { return }
         
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
     
         let session = URLSession.shared
@@ -28,7 +28,8 @@ class DataFromAirKorea
             {
                 do
                 {
-                    let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+                    let dic = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
+// guard let dic = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else { return }
                     self.dataDic = dic
                     self.dataOne = DataOne(specificCity: specificCity, dataDic: self.dataDic!)
                 } catch let error
@@ -176,9 +177,9 @@ class DataFromAirKorea2
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let today = formatter.string(from: Date())
-        let url2 = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMinuDustFrcstDspth?searchDate=\(today)&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&_returnType=json")
+        guard let url2 = URL(string: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMinuDustFrcstDspth?searchDate=\(today)&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&_returnType=json") else { return }
         
-        var request2 = URLRequest(url: url2!)
+        var request2 = URLRequest(url: url2)
         request2.httpMethod = "GET"
         
         let session2 = URLSession.shared
@@ -187,8 +188,8 @@ class DataFromAirKorea2
             {
                 do
                 {
-                    let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
-                    self.dataDic2 = dic
+                    let dic2 = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+                    self.dataDic2 = dic2
                     self.dataThree = DataThree(index1: index1, index2: index2, dataDic: self.dataDic2!)
                 } catch let error
                 {
