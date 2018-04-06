@@ -1,4 +1,4 @@
-# 먼지먼지 (Dusty)
+# 먼지먼지
 
 [먼지먼지 앱스토어 다운로드](https://itunes.apple.com/kr/app/먼지먼지/id1346903675?l=en&mt=8)
 
@@ -15,3 +15,24 @@
 ### 데이터 출처
 - 먼지먼지 앱의 데이터는 한국 환경공단에서 제공합니다.
 - 현지 사정이나 데이터 수신 상태에 따라 미수신 될 수 있습니다.
+
+
+
+
+# Dusty
+
+[Download Dusty for App Store](https://itunes.apple.com/kr/app/먼지먼지/id1346903675?l=en&mt=8)
+
+Always check for dust information using the Dusty app. Dusty provides a simple, intuitive way to provide fine dust information. If you leave your feedback in a user review or email, we will reflect it hard.
+
+### Key Functions :
+- The widget is a simple way to provide fine dust information.
+- The fine dust concentration is intuitively expressed by color.
+- Provides a combination of atmospheric indices, as well as the concentration of fine dust and ultrafine dust.
+- Tomorrow’s fine dust forecast and the current fine dust alert level are provided.
+- Locate the current user and provide fine dust information.
+- Provides a more detailed location search function at the current user location.
+
+### Data Source :
+- Data from dust dust and dust app is available from the Korea Environment Corporation.
+- Depending on local circumstances or the status of the data received, this may not be successful.
