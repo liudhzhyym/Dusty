@@ -6,5 +6,7 @@ target 'Dusty' do
   use_frameworks!
 
   # Pods for Dusty
+  pod 'Google-Mobile-Ads-SDK'
+  pod 'Alamofire', '~> 4.7'
   
 end

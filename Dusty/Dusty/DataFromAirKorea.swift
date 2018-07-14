@@ -190,6 +190,7 @@ class DataFromAirKorea2
                 {
                     let dic2 = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                     self.dataDic2 = dic2
+                    
                     self.dataThree = DataThree(index1: index1, index2: index2, dataDic: self.dataDic2!)
                 } catch let error
                 {
@@ -229,6 +230,7 @@ class DataFour
     init?(index1: Int, index2: Int, dataDic: [[String:Any]])
     {
         guard let grade = dataDic[1]["informGrade"] as? String else { return }
+        
         str = "\(grade[grade.index(grade.startIndex, offsetBy: index1)])" + "\(grade[grade.index(grade.startIndex, offsetBy: index2)])"        
     }
 }

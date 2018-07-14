@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; };
 		EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DC47620285F73000FBA5A /* DesignableView.swift */; };
+		EF698C8220F9BBE6005DE014 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */; };
 		EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF74529A202D388900B213D3 /* NotificationCenter.framework */; };
 		EF74529E202D388900B213D3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74529D202D388900B213D3 /* TodayViewController.swift */; };
 		EF7452A1202D388900B213D3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74529F202D388900B213D3 /* MainInterface.storyboard */; };
 		EF7452A5202D388900B213D3 /* Dusty Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EF745299202D388900B213D3 /* Dusty Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EF7452AB202D3BC000B213D3 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7452AA202D3BC000B213D3 /* location.png */; };
-		EF7BB7C7202D4F1900892AA2 /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; };
 		EF92C7192028494300204A57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C7182028494300204A57 /* AppDelegate.swift */; };
 		EF92C71B2028494300204A57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C71A2028494300204A57 /* ViewController.swift */; };
 		EF92C71E2028494300204A57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF92C71C2028494300204A57 /* Main.storyboard */; };
@@ -53,6 +53,7 @@
 		88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.release.xcconfig"; sourceTree = "<group>"; };
 		EF4DC47620285F73000FBA5A /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		EF69048F2029A57400E83F84 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EF745299202D388900B213D3 /* Dusty Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Dusty Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF74529A202D388900B213D3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		EF74529D202D388900B213D3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF7BB7C7202D4F1900892AA2 /* Pods_Dusty.framework in Frameworks */,
 				EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +149,7 @@
 				EF92C7182028494300204A57 /* AppDelegate.swift */,
 				EF92C71A2028494300204A57 /* ViewController.swift */,
 				EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */,
+				EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */,
 				EF4DC47620285F73000FBA5A /* DesignableView.swift */,
 				EF92C71C2028494300204A57 /* Main.storyboard */,
 				EF92C71F2028494300204A57 /* Assets.xcassets */,
@@ -187,9 +188,8 @@
 				EF92C7112028494300204A57 /* Sources */,
 				EF92C7122028494300204A57 /* Frameworks */,
 				EF92C7132028494300204A57 /* Resources */,
-				B8B1305D3BD4E71EFB01D6CB /* [CP] Embed Pods Frameworks */,
-				9A45D3F03451BC0D54A166B5 /* [CP] Copy Pods Resources */,
 				EF7452A9202D388900B213D3 /* Embed App Extensions */,
+				F7A329E36F3C61057ADFDF54 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -208,11 +208,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = macker;
 				TargetAttributes = {
 					EF745298202D388900B213D3 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -222,6 +223,7 @@
 					};
 					EF92C7142028494300204A57 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -236,7 +238,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = EF92C70C2028494300204A57;
@@ -291,33 +292,18 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9A45D3F03451BC0D54A166B5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dusty/Pods-Dusty-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8B1305D3BD4E71EFB01D6CB /* [CP] Embed Pods Frameworks */ = {
+		F7A329E36F3C61057ADFDF54 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Dusty/Pods-Dusty-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -342,6 +328,7 @@
 				EF9D93C4202893F600DEF489 /* DataFromAirKorea.swift in Sources */,
 				EF92C71B2028494300204A57 /* ViewController.swift in Sources */,
 				EF92C7192028494300204A57 /* AppDelegate.swift in Sources */,
+				EF698C8220F9BBE6005DE014 /* SettingsViewController.swift in Sources */,
 				EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -413,7 +400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -422,6 +409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -432,6 +420,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -439,6 +428,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -466,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -479,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -489,6 +480,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -496,6 +488,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -517,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -539,7 +532,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -558,7 +551,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

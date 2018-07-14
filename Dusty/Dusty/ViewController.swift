@@ -8,9 +8,13 @@
 
 import UIKit
 import CoreLocation
+import GoogleMobileAds
+import Alamofire
 
 class ViewController: UIViewController, CLLocationManagerDelegate
 {
+    var interstitial: GADInterstitial!
+    
     @IBOutlet var backgroundView: UIView?
     @IBOutlet weak var overallAirLabel: UILabel?
     @IBOutlet weak var fineDustLabel: UILabel?
@@ -33,6 +37,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let request = GADRequest()
+        request.testDevices = [ "7416938804bd66f79e049ba3971c964b" ]
+        interstitial.load(request)
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -61,13 +70,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         } else
         {
             print("need iOS 11.0 or higher")
-        }
+        }                
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning()
@@ -78,6 +85,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         guard (locations.last?.coordinate) != nil else { return }
+        
+        let headers: HTTPHeaders = ["Authorization": "KakaoAK c70e9056ac2981fa07457549afe9ee25"]
+        
+        if let xCoordinate = locations.last?.coordinate.longitude,
+            let yCoordinate = locations.last?.coordinate.latitude
+        {
+            let url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=\(xCoordinate)&y=\(yCoordinate)&input_coord=WGS84"
+            
+            Alamofire.request(url, headers: headers).responseJSON { response in
+                
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print(utf8Text)
+                }
+            }
+        }
+        
         location()
         locationManager.stopUpdatingLocation()
     }
@@ -270,12 +293,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             self.specificCity = nil
         })
         
-        if let index1 = self.predictIndex1, let index2 = self.predictIndex2
-        {
-            self.dataFromAirKorea2 = DataFromAirKorea2(index1: index1, index2: index2, completeHandler: {
-                self.predictLabel?.text = "내일 미세먼지 : " + "\(self.dataFromAirKorea2?.dataThree?.dataFour?.str ?? "--")"
-            })
-        }
+//        if let index1 = self.predictIndex1, let index2 = self.predictIndex2
+//        {
+//            self.dataFromAirKorea2 = DataFromAirKorea2(index1: index1, index2: index2, completeHandler: {
+//                self.predictLabel?.text = "내일 미세먼지 : " + "\(self.dataFromAirKorea2?.dataThree?.dataFour?.str ?? "--")"
+//            })
+//        }
     }
     
     func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?) -> Void )
@@ -306,9 +329,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @objc func keyboardWillShow(_ notification:Notification)
     {
         guard let userInfo = notification.userInfo else { return }
-        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardFrame.size.height, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
     }
     
     @objc func keyboardWillHide(_ notification:Notification)
@@ -319,6 +342,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBAction func currentLocation(_ sender: Any)
     {
         locationManager.startUpdatingLocation()
+                
+        if interstitial.isReady
+        {
+            interstitial.present(fromRootViewController: self)
+        } else
+        {
+            print("ad wasn't ready")
+        }
     }
     
 }

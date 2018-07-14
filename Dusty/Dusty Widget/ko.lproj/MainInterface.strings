@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "-"; ObjectID = "0Vl-XJ-LYg"; */
+"0Vl-XJ-LYg.text" = "-";
+
+/* Class = "UILabel"; text = "미세먼지 : - ㎍/m3"; ObjectID = "EWl-DA-DS2"; */
+"EWl-DA-DS2.text" = "미세먼지 : - ㎍/m3";
+
+/* Class = "UILabel"; text = "---"; ObjectID = "YFP-Oj-qE2"; */
+"YFP-Oj-qE2.text" = "---";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "cRN-xb-rFp"; */
+"cRN-xb-rFp.text" = "--";
+
+/* Class = "UILabel"; text = "초미세먼지 : - ㎍/m3"; ObjectID = "yX8-Zp-dxt"; */
+"yX8-Zp-dxt.text" = "초미세먼지 : - ㎍/m3";

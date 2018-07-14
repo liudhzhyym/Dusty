@@ -1,0 +1,33 @@
+
+/* Class = "UILabel"; text = "내일 미세먼지 : --"; ObjectID = "0d3-bL-USN"; */
+"0d3-bL-USN.text" = "내일 미세먼지 : --";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "9ee-HO-eIp"; */
+"9ee-HO-eIp.text" = "-";
+
+/* Class = "UINavigationItem"; title = "--"; ObjectID = "HCU-3p-RJN"; */
+"HCU-3p-RJN.title" = "--";
+
+/* Class = "UILabel"; text = "미세먼지 : - ㎍/m3"; ObjectID = "T7V-j7-S1P"; */
+"T7V-j7-S1P.text" = "미세먼지 : - ㎍/m3";
+
+/* Class = "UILabel"; text = "초미세먼지 : - ㎍/m3"; ObjectID = "Zw0-cT-fJs"; */
+"Zw0-cT-fJs.text" = "초미세먼지 : - ㎍/m3";
+
+/* Class = "UINavigationItem"; title = "설정"; ObjectID = "g4v-8w-QRo"; */
+"g4v-8w-QRo.title" = "설정";
+
+/* Class = "UILabel"; text = "통합 대기 지수"; ObjectID = "gfM-68-HGZ"; */
+"gfM-68-HGZ.text" = "통합 대기 지수";
+
+/* Class = "UIBarButtonItem"; title = "설정"; ObjectID = "k8r-hK-cq0"; */
+"k8r-hK-cq0.title" = "설정";
+
+/* Class = "UITextView"; text = "---"; ObjectID = "mNS-Bl-UHw"; */
+"mNS-Bl-UHw.text" = "---";
+
+/* Class = "UIBarButtonItem"; title = "위치"; ObjectID = "nk3-Vu-qcg"; */
+"nk3-Vu-qcg.title" = "위치";
+
+/* Class = "UIBarButtonItem"; title = "완료"; ObjectID = "zuq-xI-5Xs"; */
+"zuq-xI-5Xs.title" = "완료";
