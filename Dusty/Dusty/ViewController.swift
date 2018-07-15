@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import GoogleMobileAds
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, CLLocationManagerDelegate
 {
@@ -24,7 +25,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var tableView: UITableView!
     
     lazy var locationManager = CLLocationManager()
+    var sidoName: String?
+    var sggName: String?
+    var umdName: String?
     var city: String?
+    var dataCenter: DataCenter?
     var dataFromAirKorea: DataFromAirKorea?
     var dataFromAirKorea2: DataFromAirKorea2?
     var baseCity: [String] = []
@@ -94,14 +99,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             let url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=\(xCoordinate)&y=\(yCoordinate)&input_coord=WGS84"
             
             Alamofire.request(url, headers: headers).responseJSON { response in
-                
-                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                    print(utf8Text)
+                if let data = response.data
+                {
+                    do
+                    {
+                        let json = try JSON(data: data)
+                        
+                        let sidoName = json["documents"][0]["address"]["region_1depth_name"]
+                        self.sidoName = "\(sidoName)"
+                        
+                        let sggName = json["documents"][0]["address"]["region_2depth_name"]
+                        self.sggName = "\(sggName)"
+                        
+                        let umdName = json["documents"][0]["address"]["region_3depth_name"]
+                        self.umdName = "\(umdName)"
+                    } catch let error
+                    {
+                        print("\(error.localizedDescription)")
+                    }
+                    
+                    self.dataCenter = DataCenter(umdName: self.umdName, completeHandler: {
+                        
+                    })
                 }
             }
         }
         
-        location()
+//        location()
         locationManager.stopUpdatingLocation()
     }
     

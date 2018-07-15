@@ -21,6 +21,7 @@
 		EF92C7202028494300204A57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF92C71F2028494300204A57 /* Assets.xcassets */; };
 		EF92C7232028494300204A57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF92C7212028494300204A57 /* LaunchScreen.storyboard */; };
 		EF9D93C4202893F600DEF489 /* DataFromAirKorea.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */; };
+		EFC30B3D20FA5A71005D6C93 /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC30B3C20FA5A71005D6C93 /* DataCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		EF92C7222028494300204A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF92C7242028494300204A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFromAirKorea.swift; sourceTree = "<group>"; };
+		EFC30B3C20FA5A71005D6C93 /* DataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				EF7BB7C9202D504B00892AA2 /* Dusty.entitlements */,
 				EF92C7182028494300204A57 /* AppDelegate.swift */,
 				EF92C71A2028494300204A57 /* ViewController.swift */,
+				EFC30B3C20FA5A71005D6C93 /* DataCenter.swift */,
 				EF9D93C3202893F600DEF489 /* DataFromAirKorea.swift */,
 				EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */,
 				EF4DC47620285F73000FBA5A /* DesignableView.swift */,
@@ -300,10 +303,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Dusty/Pods-Dusty-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -325,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFC30B3D20FA5A71005D6C93 /* DataCenter.swift in Sources */,
 				EF9D93C4202893F600DEF489 /* DataFromAirKorea.swift in Sources */,
 				EF92C71B2028494300204A57 /* ViewController.swift in Sources */,
 				EF92C7192028494300204A57 /* AppDelegate.swift in Sources */,
