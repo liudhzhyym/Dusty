@@ -25,11 +25,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var tableView: UITableView!
     
     lazy var locationManager = CLLocationManager()
+    var dataCenter: DataCenter?
     var sidoName: String?
     var sggName: String?
     var umdName: String?
+    var tmX: String?
+    var tmY: String?
+    
     var city: String?
-    var dataCenter: DataCenter?
     var dataFromAirKorea: DataFromAirKorea?
     var dataFromAirKorea2: DataFromAirKorea2?
     var baseCity: [String] = []
@@ -98,6 +101,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         {
             let url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=\(xCoordinate)&y=\(yCoordinate)&input_coord=WGS84"
             
+            // 1
             Alamofire.request(url, headers: headers).responseJSON { response in
                 if let data = response.data
                 {
@@ -105,23 +109,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     {
                         let json = try JSON(data: data)
                         
-                        let sidoName = json["documents"][0]["address"]["region_1depth_name"]
-                        self.sidoName = "\(sidoName)"
-                        
-                        let sggName = json["documents"][0]["address"]["region_2depth_name"]
-                        self.sggName = "\(sggName)"
-                        
-                        let umdName = json["documents"][0]["address"]["region_3depth_name"]
-                        self.umdName = "\(umdName)"
+                        self.sidoName = "\(json["documents"][0]["address"]["region_1depth_name"])"
+                        self.sggName = "\(json["documents"][0]["address"]["region_2depth_name"])"
+                        self.umdName = "\(json["documents"][0]["address"]["region_3depth_name"])"
                     } catch let error
                     {
                         print("\(error.localizedDescription)")
                     }
                     
-                    self.dataCenter = DataCenter(umdName: self.umdName, completeHandler: {
-                        
-                    })
-                }
+                    //2
+                    self.callDataCenter()
+                }                
             }
         }
         
@@ -136,6 +134,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             self.navigationController?.navigationBar.topItem?.title = "위치 접근 불가"
         }
     }
+    
+    //3
+    func callDataCenter()
+    {
+        //4
+        self.dataCenter = DataCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {            
+            //5
+            self.sidoName = self.dataCenter?.sidoName
+            self.sggName = self.dataCenter?.sggName
+            self.umdName = self.dataCenter?.umdName
+            self.tmX = self.dataCenter?.tmX
+            self.tmY = self.dataCenter?.tmY
+            
+            print(self.sidoName, self.umdName, self.tmX)
+        })
+    }
+    
+    
     
     func location()
     {
@@ -374,6 +390,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         {
             print("ad wasn't ready")
         }
+        
+        print(self.sggName, self.umdName, self.tmX)
     }
     
 }
