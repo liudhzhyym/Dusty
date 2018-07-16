@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class DataCenter
+class UmdCenter
 {
     var sidoName: String?
     var sggName: String?
