@@ -173,6 +173,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="8bC-Xf-vdC" id="O9p-dh-0sn"/>
                         <outlet property="fineDustLabel" destination="T7V-j7-S1P" id="kZQ-K3-30u"/>
+                        <outlet property="graph" destination="N6X-aM-p9A" id="ByQ-lz-lga"/>
                         <outlet property="overallAirLabel" destination="9ee-HO-eIp" id="APO-zF-Ntq"/>
                         <outlet property="predictLabel" destination="0d3-bL-USN" id="igR-gD-RA1"/>
                         <outlet property="superDustLabel" destination="Zw0-cT-fJs" id="1CJ-OA-pKm"/>
@@ -195,20 +196,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ut1-c7-nTl" customClass="DesignableView" customModule="Dusty" customModuleProvider="target">
                                 <rect key="frame" x="20" y="168.33333333333331" width="374" height="515.33333333333348"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세계보건기구(WHO) 기준을 사용 (예정)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geA-pf-yw5">
-                                        <rect key="frame" x="53.333333333333343" y="247.33333333333337" width="267.66666666666663" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세계보건기구(WHO) 기준을 사용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geA-pf-yw5">
+                                        <rect key="frame" x="75.333333333333329" y="247.33333333333337" width="223.33333333333337" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지 농도 알림 설정하기 (예정)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0In-TW-dBk">
-                                        <rect key="frame" x="69.666666666666686" y="67" width="235" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지 농도 알림 설정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0In-TW-dBk">
+                                        <rect key="frame" x="106.33333333333333" y="67" width="161.33333333333337" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제공 한국 환경공단" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lY0-wL-clZ">
-                                        <rect key="frame" x="157" y="484.66666666666663" width="60" height="9.6666666666666856"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제공 Airkorea" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lY0-wL-clZ">
+                                        <rect key="frame" x="162.66666666666666" y="484.66666666666663" width="48.666666666666657" height="9.6666666666666856"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="8"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -221,6 +222,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYN-H7-ala">
                                         <rect key="frame" x="162.66666666666666" y="280.66666666666663" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="switchAction:" destination="AwJ-ne-EVi" eventType="valueChanged" id="9lT-Tc-F6F"/>
+                                        </connections>
                                     </switch>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPi-pA-9OJ">
                                         <rect key="frame" x="112.33333333333333" y="100.99999999999997" width="149.33333333333337" height="30"/>
@@ -285,6 +289,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="whoSwitch" destination="zYN-H7-ala" id="Ns1-m1-Vkq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="stg-E8-odh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

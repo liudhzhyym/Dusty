@@ -21,6 +21,7 @@
 		EF92C7202028494300204A57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF92C71F2028494300204A57 /* Assets.xcassets */; };
 		EF92C7232028494300204A57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF92C7212028494300204A57 /* LaunchScreen.storyboard */; };
 		EFC30B3D20FA5A71005D6C93 /* UmdCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC30B3C20FA5A71005D6C93 /* UmdCenter.swift */; };
+		EFD5757520FCBC61009A401B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD5757420FCBC61009A401B /* GoogleService-Info.plist */; };
 		EFF0266120FB81EF00FB6249 /* TmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF0266020FB81EF00FB6249 /* TmCenter.swift */; };
 		EFF0266320FBB41500FB6249 /* StationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF0266220FBB41500FB6249 /* StationCenter.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		EF92C7222028494300204A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF92C7242028494300204A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFC30B3C20FA5A71005D6C93 /* UmdCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmdCenter.swift; sourceTree = "<group>"; };
+		EFD5757420FCBC61009A401B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EFF0266020FB81EF00FB6249 /* TmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmCenter.swift; sourceTree = "<group>"; };
 		EFF0266220FBB41500FB6249 /* StationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 				EF92C7212028494300204A57 /* LaunchScreen.storyboard */,
 				EF92C7242028494300204A57 /* Info.plist */,
 				EF69048F2029A57400E83F84 /* Location.gpx */,
+				EFD5757420FCBC61009A401B /* GoogleService-Info.plist */,
 			);
 			path = Dusty;
 			sourceTree = "<group>";
@@ -235,6 +238,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -272,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF92C7232028494300204A57 /* LaunchScreen.storyboard in Resources */,
+				EFD5757520FCBC61009A401B /* GoogleService-Info.plist in Resources */,
 				EF92C7202028494300204A57 /* Assets.xcassets in Resources */,
 				EF92C71E2028494300204A57 /* Main.storyboard in Resources */,
 			);
@@ -306,12 +313,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Dusty/Pods-Dusty-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -532,7 +545,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Dusty/Dusty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -540,6 +552,77 @@
 				INFOPLIST_FILE = Dusty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"nanopb\"",
+					"-weak_framework",
+					"\"AdSupport\"",
+					"-weak_framework",
+					"\"JavaScriptCore\"",
+					"-weak_framework",
+					"\"SafariServices\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -551,7 +634,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Dusty/Dusty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -559,6 +641,77 @@
 				INFOPLIST_FILE = Dusty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"nanopb\"",
+					"-weak_framework",
+					"\"AdSupport\"",
+					"-weak_framework",
+					"\"JavaScriptCore\"",
+					"-weak_framework",
+					"\"SafariServices\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macker.Dusty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

@@ -26,6 +26,7 @@ class TmCenter
                     do
                     {
                         let json = try JSON(data: data)
+                        
 //                        self.stationName = json[]
                     } catch let error
                     {
