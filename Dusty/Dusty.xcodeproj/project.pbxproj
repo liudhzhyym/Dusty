@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; };
+		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DC47620285F73000FBA5A /* DesignableView.swift */; };
 		EF698C8220F9BBE6005DE014 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */; };
 		EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF74529A202D388900B213D3 /* NotificationCenter.framework */; };
@@ -239,7 +239,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -313,18 +313,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Dusty/Pods-Dusty-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -577,23 +571,11 @@
 					"-framework",
 					"\"CoreVideo\"",
 					"-framework",
-					"\"FirebaseAnalytics\"",
-					"-framework",
-					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreDiagnostics\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
-					"-framework",
-					"\"FirebaseNanoPB\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"GLKit\"",
 					"-framework",
 					"\"GoogleMobileAds\"",
-					"-framework",
-					"\"GoogleToolboxForMac\"",
 					"-framework",
 					"\"MediaPlayer\"",
 					"-framework",
@@ -612,8 +594,6 @@
 					"\"SwiftyJSON\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					"\"nanopb\"",
 					"-weak_framework",
 					"\"AdSupport\"",
 					"-weak_framework",
@@ -666,23 +646,11 @@
 					"-framework",
 					"\"CoreVideo\"",
 					"-framework",
-					"\"FirebaseAnalytics\"",
-					"-framework",
-					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreDiagnostics\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
-					"-framework",
-					"\"FirebaseNanoPB\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"GLKit\"",
 					"-framework",
 					"\"GoogleMobileAds\"",
-					"-framework",
-					"\"GoogleToolboxForMac\"",
 					"-framework",
 					"\"MediaPlayer\"",
 					"-framework",
@@ -701,8 +669,6 @@
 					"\"SwiftyJSON\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					"\"nanopb\"",
 					"-weak_framework",
 					"\"AdSupport\"",
 					"-weak_framework",

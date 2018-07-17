@@ -196,15 +196,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ut1-c7-nTl" customClass="DesignableView" customModule="Dusty" customModuleProvider="target">
                                 <rect key="frame" x="20" y="168.33333333333331" width="374" height="515.33333333333348"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세계보건기구(WHO) 기준을 사용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geA-pf-yw5">
-                                        <rect key="frame" x="75.333333333333329" y="247.33333333333337" width="223.33333333333337" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세계보건기구(WHO) 기준 사용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geA-pf-yw5">
+                                        <rect key="frame" x="82.666666666666671" y="234.33333333333334" width="208.66666666666663" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지 농도 알림 설정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0In-TW-dBk">
-                                        <rect key="frame" x="106.33333333333333" y="67" width="161.33333333333337" height="21"/>
+                                        <rect key="frame" x="106.33333333333333" y="54" width="161.33333333333337" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="입력한 미세먼지 농도를 넘어가면 알림이 울립니다" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPa-uz-OY5">
+                                        <rect key="frame" x="60.000000000000014" y="82.333333333333314" width="254.33333333333337" height="15.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -221,32 +227,42 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYN-H7-ala">
-                                        <rect key="frame" x="162.66666666666666" y="280.66666666666663" width="51" height="31"/>
+                                        <rect key="frame" x="162.66666666666666" y="293.66666666666663" width="51" height="31"/>
                                         <connections>
                                             <action selector="switchAction:" destination="AwJ-ne-EVi" eventType="valueChanged" id="9lT-Tc-F6F"/>
                                         </connections>
                                     </switch>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPi-pA-9OJ">
-                                        <rect key="frame" x="112.33333333333333" y="100.99999999999997" width="149.33333333333337" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="미세먼지 농도" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPi-pA-9OJ">
+                                        <rect key="frame" x="112.33333333333333" y="113.99999999999997" width="149.33333333333337" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="해당 스위치를 켜면 WHO 기준을 사용합니다 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y85-Io-ac1">
+                                        <rect key="frame" x="70.666666666666686" y="262.66666666666663" width="233" height="15.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="lY0-wL-clZ" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="2OR-OC-P6V"/>
                                     <constraint firstItem="sEg-U0-Pps" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="1.85" id="3ij-vL-TVu"/>
+                                    <constraint firstItem="Y85-Io-ac1" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="DVm-L1-lO5"/>
+                                    <constraint firstItem="HPa-uz-OY5" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.35" id="KB7-Tp-jAs"/>
                                     <constraint firstItem="lY0-wL-clZ" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="1.9" id="OKL-tE-7Km"/>
                                     <constraint firstItem="geA-pf-yw5" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="RvU-CJ-h76"/>
+                                    <constraint firstItem="HPa-uz-OY5" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="Tdj-a7-x2s"/>
                                     <constraint firstItem="TPi-pA-9OJ" firstAttribute="width" secondItem="ut1-c7-nTl" secondAttribute="width" multiplier="0.4" id="UWv-vA-g3B"/>
                                     <constraint firstItem="TPi-pA-9OJ" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="Y2J-Xu-plk"/>
-                                    <constraint firstItem="0In-TW-dBk" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.3" id="aIw-o9-9qv"/>
-                                    <constraint firstItem="geA-pf-yw5" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" id="hGb-dJ-eWE"/>
+                                    <constraint firstItem="Y85-Io-ac1" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="1.05" id="YQL-g4-Egc"/>
+                                    <constraint firstItem="0In-TW-dBk" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.25" id="aIw-o9-9qv"/>
+                                    <constraint firstItem="geA-pf-yw5" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.95" id="hGb-dJ-eWE"/>
                                     <constraint firstItem="sEg-U0-Pps" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="i2o-st-5pR"/>
-                                    <constraint firstItem="zYN-H7-ala" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="1.15" id="kxZ-V4-hId"/>
+                                    <constraint firstItem="zYN-H7-ala" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="1.2" id="kxZ-V4-hId"/>
                                     <constraint firstItem="0In-TW-dBk" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="nla-tQ-rZZ"/>
-                                    <constraint firstItem="TPi-pA-9OJ" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.45" id="tBP-bH-3XX"/>
+                                    <constraint firstItem="TPi-pA-9OJ" firstAttribute="centerY" secondItem="ut1-c7-nTl" secondAttribute="centerY" multiplier="0.5" id="tBP-bH-3XX"/>
                                     <constraint firstItem="zYN-H7-ala" firstAttribute="centerX" secondItem="ut1-c7-nTl" secondAttribute="centerX" id="ul6-NN-Zb8"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -290,6 +306,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="concentrationSetting" destination="TPi-pA-9OJ" id="vdh-sd-kE7"/>
                         <outlet property="whoSwitch" destination="zYN-H7-ala" id="Ns1-m1-Vkq"/>
                     </connections>
                 </viewController>

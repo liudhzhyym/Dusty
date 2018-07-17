@@ -9,7 +9,5 @@ target 'Dusty' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
-  pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
   
 end
