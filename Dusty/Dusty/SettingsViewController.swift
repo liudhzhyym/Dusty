@@ -16,7 +16,10 @@ class SettingsViewController: UIViewController
     {
         super.viewDidLoad()
         
-        whoSwitch.isOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "switch") as! Bool
+        if let isOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "switch")
+        {
+            whoSwitch.isOn = isOn as! Bool
+        }
     }
     
     @IBAction func doneAction(_ sender: Any)
