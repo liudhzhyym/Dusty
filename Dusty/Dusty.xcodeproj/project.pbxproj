@@ -14,7 +14,6 @@
 		EF74529E202D388900B213D3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74529D202D388900B213D3 /* TodayViewController.swift */; };
 		EF7452A1202D388900B213D3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74529F202D388900B213D3 /* MainInterface.storyboard */; };
 		EF7452A5202D388900B213D3 /* Dusty Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EF745299202D388900B213D3 /* Dusty Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		EF7452AB202D3BC000B213D3 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7452AA202D3BC000B213D3 /* location.png */; };
 		EF92C7192028494300204A57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C7182028494300204A57 /* AppDelegate.swift */; };
 		EF92C71B2028494300204A57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92C71A2028494300204A57 /* ViewController.swift */; };
 		EF92C71E2028494300204A57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF92C71C2028494300204A57 /* Main.storyboard */; };
@@ -62,7 +61,6 @@
 		EF74529D202D388900B213D3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		EF7452A0202D388900B213D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		EF7452A2202D388900B213D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EF7452AA202D3BC000B213D3 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		EF7BB7C8202D501500892AA2 /* Dusty Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dusty Widget.entitlements"; sourceTree = "<group>"; };
 		EF7BB7C9202D504B00892AA2 /* Dusty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dusty.entitlements; sourceTree = "<group>"; };
 		EF92C7152028494300204A57 /* Dusty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dusty.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +121,6 @@
 				EF74529D202D388900B213D3 /* TodayViewController.swift */,
 				EF74529F202D388900B213D3 /* MainInterface.storyboard */,
 				EF7452A2202D388900B213D3 /* Info.plist */,
-				EF7452AA202D3BC000B213D3 /* location.png */,
 			);
 			path = "Dusty Widget";
 			sourceTree = "<group>";
@@ -238,6 +235,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 0;
 							};
@@ -268,7 +268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF7452AB202D3BC000B213D3 /* location.png in Resources */,
 				EF7452A1202D388900B213D3 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,7 +394,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = "Dusty Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -412,7 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = "Dusty Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macker.Dusty.Dusty-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -473,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -527,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -544,7 +543,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = Dusty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -619,7 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 77DCP747V2;
 				INFOPLIST_FILE = Dusty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

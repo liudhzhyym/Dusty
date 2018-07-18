@@ -15,6 +15,7 @@ import GoogleMobileAds
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate
 {
     var window: UIWindow?
+    var stationCenter: StationCenter?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
@@ -22,43 +23,87 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GADMobileAds.configure(withApplicationID: "ca-app-pub-2178088560941007~1089414105")
         
         // 로컬 노티
-        if #available(iOS 10.0, *)
-        {
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
-            center.delegate = self
-        } else
-        {
-            
-        }
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
+        center.delegate = self
+        
+        // 데이터 새로고침 주기
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
     
-    func applicationWillResignActive(_ application: UIApplication)
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication)
-    {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication)
-    {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication)
-    {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication)
-    {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
+        
+        if let concentration = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.integer(forKey: "concentration")
+        {
+                if let notificationIsOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.bool(forKey: "notification")
+                {
+                    if 50 >= concentration && notificationIsOn
+                    {
+                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                        
+                        let content = UNMutableNotificationContent()
+                        content.body = "미세먼지 농도가 설정값을 넘어갔습니다"
+                        content.sound = UNNotificationSound.default
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                        let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
+                        
+                        center.add(request)
+                        completionHandler(.newData)
+                    } else // falsefalse falsetrue truefalse
+                    {
+                        if 50 < concentration // falsefalse falsetrue
+                        {
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
+                        } else // truefalse
+                        {
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                        }
+                        
+                        completionHandler(.noData)
+                    }
+                }
+        }
+        
+//        if let stationName = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "station") as? String,
+//            let concentration = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.integer(forKey: "concentration")
+//        {
+//            self.stationCenter = StationCenter(stationName: stationName, completeHandler: {
+//                if let pm10Value = Int((self.stationCenter?.pm10Value)!),
+//                    let notificationIsOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.bool(forKey: "notification")
+//                {
+//                    if pm10Value >= concentration && notificationIsOn
+//                    {
+//                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+//
+//                        let content = UNMutableNotificationContent()
+//                        content.body = "미세먼지 농도가 설정값을 넘어갔습니다"
+//                        content.sound = UNNotificationSound.default
+//                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+//                        let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
+//
+//                        center.add(request)
+//                        completionHandler(.newData)
+//                    } else // falsefalse falsetrue truefalse
+//                    {
+//                        if pm10Value < concentration // falsefalse falsetrue
+//                        {
+//                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
+//                        } else // truefalse
+//                        {
+//                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+//                        }
+//
+//                        completionHandler(.noData)
+//                    }
+//                }
+//            })
+//        }
+        
+        completionHandler(.failed)
     }
 }

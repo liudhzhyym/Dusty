@@ -91,7 +91,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         } else
         {
             print("need iOS 11.0 or higher")
-        }                
+        }
         
         // 검색시 키보드 작동
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -179,6 +179,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     {
         self.tmCenter = TmCenter(tmX: self.tmX, tmY: tmY, completeHandler: {
             self.stationName = self.tmCenter?.stationName
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(self.stationName, forKey: "station")
             
             self.callStationCenter()
         })
@@ -262,27 +263,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     if 0 <= pm10 && 30 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
                     } else if 30 <= pm10 && 80 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
                     } else if 80 <= pm10 && 150 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
                     } else if 150 <= pm10
                     {
                         self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
                     } else
                     {
                         self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                     }
                     

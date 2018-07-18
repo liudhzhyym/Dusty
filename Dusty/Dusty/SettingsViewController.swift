@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UserNotifications
 
 class SettingsViewController: UIViewController
 {
@@ -26,9 +25,9 @@ class SettingsViewController: UIViewController
             whoSwitch.isOn = isOn as! Bool
         }
         
-        if let concentrationSetting = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "concentration")
+        if let concentrationSetting = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.integer(forKey: "concentration")
         {
-            self.concentrationSetting.text = concentrationSetting as? String
+            self.concentrationSetting.text = "\(concentrationSetting)"
         }
     }
     
@@ -41,30 +40,15 @@ class SettingsViewController: UIViewController
     {
         navigationController?.popViewController(animated: true)
         
-        if let concentrationSetting = concentrationSetting.text
+        if let concentrationSetting = Int(concentrationSetting.text!)
         {
-            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(concentrationSetting, forKey: "concentration")
-            
-            if #available(iOS 10.0, *)
-            {
-                let center = UNUserNotificationCenter.current()
-                center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
-                
-                // removeNotification()
-                // if 네트워킹을 통해 얻은 미세먼지 농도 >= concentrationSetting
-                let content = UNMutableNotificationContent()
-                content.title = "미세먼지 농도 알림"
-                content.body = "미세먼지 : - ㎍/m3" + "\n" + "초미세먼지 : - ㎍/m3"
-                content.sound = UNNotificationSound.default
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-                let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
-                
-                center.add(request)
-            } else
-            {
-                
-            }
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(concentrationSetting, forKey: "concentration")
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
+        } else
+        {
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(0, forKey: "concentration")
         }
+        
     }
     
     @IBAction func switchAction(_ sender: Any)
