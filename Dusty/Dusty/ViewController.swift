@@ -46,10 +46,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     var khaiValue: String?
     
     // 검색에 필요
-    var baseCity: [String] = []
-    var searchCity: [String] = []
-    var searchTerm: String?
-    var specificCity: String?
+    var fixedCities: [String] = []
+    var sidoNames: [String] = []
+    var sggNames: [String] = []
+    var umdNames: [String] = []
+    
     
     override func viewDidLoad()
     {
@@ -120,6 +121,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         locationManager.stopUpdatingLocation()
     }
     
+    func callUmdCenter()
+    {
+        self.umdCenter = UmdCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {
+            self.tmX = self.umdCenter?.tmX
+            self.tmY = self.umdCenter?.tmY
+            
+            self.callTmCenter()
+        })
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
         // 위치 꺼놨을때
@@ -148,6 +159,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     self.sidoName = "\(json["documents"][0]["address"]["region_1depth_name"])"
                     self.sggName = "\(json["documents"][0]["address"]["region_2depth_name"])"
                     self.umdName = "\(json["documents"][0]["address"]["region_3depth_name"])"
+                    
                 } catch let error
                 {
                     print("\(error.localizedDescription)")
@@ -164,9 +176,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     func callUmdCenter()
     {
         self.umdCenter = UmdCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {
-            self.sidoName = self.umdCenter?.sidoName
-            self.sggName = self.umdCenter?.sggName
-            self.umdName = self.umdCenter?.umdName
+//            self.sidoName = self.umdCenter?.sidoName
+//            self.sggName = self.umdCenter?.sggName
+//            self.umdName = self.umdCenter?.umdName
             self.tmX = self.umdCenter?.tmX
             self.tmY = self.umdCenter?.tmY
             
@@ -233,27 +245,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     if 0 <= pm10 && 30 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
                     } else if 30 <= pm10 && 50 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 227/255, green: 230/255, blue: 218/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
                     } else if 50 <= pm10 && 100 > pm10
                     {
                         self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 251/255, green: 217/255, blue: 211/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
                     } else if 100 <= pm10
                     {
                         self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
                     } else
                     {
                         self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                        self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
                         UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                     }
                     
@@ -312,6 +324,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         }
     }
     
+    // 키보드 편의 기능
     @objc func keyboardWillShow(_ notification:Notification)
     {
         guard let userInfo = notification.userInfo else { return }
@@ -344,13 +357,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return searchCity.count
+        return fixedCities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = searchCity[indexPath.row]
+        cell.textLabel?.text = fixedCities[indexPath.row]
         
         return cell
     }
@@ -358,8 +371,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        specificCity = (cell.textLabel?.text)!
         
+        for (index, cityName) in self.fixedCities.enumerated()
+        {
+            if cityName == cell.textLabel?.text
+            {
+                self.sidoName = sidoNames[index]
+                self.sggName = sggNames[index]
+                self.umdName = umdNames[index]
+            }
+        }
+        
+        self.callUmdCenter()
         
         if #available(iOS 11.0, *)
         {
@@ -378,37 +401,56 @@ extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating
         tableView.alpha = 1.0
     }
     
+    func updateSearchResults(for searchController: UISearchController)
+    {
+        if let searchTerm = searchController.searchBar.text,
+            let encSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+        {
+
+            let url = "https://dapi.kakao.com/v2/local/search/address.json?query=\(encSearchTerm)"
+            let headers: HTTPHeaders = [ "Authorization" : "KakaoAK c70e9056ac2981fa07457549afe9ee25" ]
+
+            Alamofire.request(url, headers: headers).responseJSON { response in
+                if let data = response.data
+                {
+                    do
+                    {
+                        let json = try JSON(data: data)
+                        
+                        self.fixedCities = []
+                        self.sidoNames = []
+                        self.sggNames = []
+                        self.umdNames = []
+                        
+                        for place in json["documents"]
+                        {
+                            self.fixedCities.append("\(place.1["address"]["address_name"])")
+                            self.sidoNames.append("\(place.1["address"]["region_1depth_name"])")
+                            self.sggNames.append("\(place.1["address"]["region_2depth_name"])")
+                            
+                            if "\(place.1["address"]["region_3depth_name"])" != ""
+                            {
+                                self.umdNames.append("\(place.1["address"]["region_3depth_name"])")
+                            } else
+                            {
+                                self.umdNames.append("\(place.1["address"]["region_3depth_h_name"])")
+                            }
+                            
+                            self.tableView.reloadData()
+                        }
+                    } catch let error
+                    {
+                        print("\(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
     func willDismissSearchController(_ searchController: UISearchController)
     {
         tableView.alpha = 0.0
-        filterContent(searchText: "")
-    }
-    
-    func filterContent(searchText: String)
-    {
-        if searchText != ""
-        {
-            findMatches(searchText)
-        } else
-        {
-            searchCity = baseCity
-        }
-        
+        fixedCities = []
         tableView.reloadData()
-    }
-    
-    func findMatches(_ searchText: String)
-    {
-        let filtered = baseCity.filter
-        {
-            return $0.range(of: searchText, options: .caseInsensitive) != nil
-        }
-        
-        self.searchCity = filtered
-    }
-
-    func updateSearchResults(for searchController: UISearchController)
-    {
-        filterContent(searchText: searchController.searchBar.text!)
     }
 }

@@ -18,9 +18,9 @@ class StationCenter
     
     init(stationName: String?, completeHandler: @escaping ()->Void)
     {
-        if let stationName = stationName
+        if let stationName = stationName,
+            let encStationName = stationName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
         {
-            let encStationName = stationName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!            
             let url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=\(encStationName)&dataTerm=daily&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json"
             
             Alamofire.request(url).responseJSON { response in
@@ -30,9 +30,10 @@ class StationCenter
                     {
                         let json = try JSON(data: data)
                         
-//                        self.pm10Value
-//                        self.pm25Value
-//                        self.khaiValue
+                        self.pm10Value = "\(json["list"][0]["pm10Value"])"
+                        self.pm25Value = "\(json["list"][0]["pm25Value"])"
+                        self.khaiValue = "\(json["list"][0]["khaiValue"])"
+                        
                     } catch let error
                     {
                         print("\(error.localizedDescription)")

@@ -70,6 +70,7 @@
 		EF92C71F2028494300204A57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF92C7222028494300204A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF92C7242028494300204A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFC11B5420FF405800D211D2 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFC30B3C20FA5A71005D6C93 /* UmdCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmdCenter.swift; sourceTree = "<group>"; };
 		EFD5757420FCBC61009A401B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EFF0266020FB81EF00FB6249 /* TmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmCenter.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		320E30F1E90DAA1275418098 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFC11B5420FF405800D211D2 /* Alamofire.framework */,
 				48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */,
 				EF74529A202D388900B213D3 /* NotificationCenter.framework */,
 			);

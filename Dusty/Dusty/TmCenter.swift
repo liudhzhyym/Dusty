@@ -26,8 +26,25 @@ class TmCenter
                     do
                     {
                         let json = try JSON(data: data)
+                        var tmFinal = 1000000.0
                         
-//                        self.stationName = json[]
+                        for place in json["list"]
+                        {
+                            let tmString = "\(place.1["tm"])"
+                            
+                            if let tmNumber = Double(tmString)
+                            {
+                                if tmNumber < tmFinal
+                                {
+                                    tmFinal = tmNumber
+                                }
+                            }
+                            
+                            if "\(tmFinal)" == "\(place.1["tm"])"
+                            {
+                                self.stationName = "\(place.1["stationName"])"
+                            }
+                        }
                     } catch let error
                     {
                         print("\(error.localizedDescription)")
