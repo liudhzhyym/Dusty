@@ -41,6 +41,8 @@ class UmdCenter
                                 self.tmY = name.1["tmY"].stringValue
                             }
                         }
+                        
+                        print(json)
                     } catch let error
                     {
                         print("\(error.localizedDescription)")

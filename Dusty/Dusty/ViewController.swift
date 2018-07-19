@@ -33,7 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     var addressCenter: AddressCenter?
     var umdCenter: UmdCenter?
     var tmCenter: TmCenter?
-    var stationCenter: StationCenter?
+    var stationsCenter: StationsCenter?
     var searchCenter: SearchCenter?
     
     // 미세먼지 정보
@@ -97,13 +97,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         }
         
         // 검색시 키보드 작동
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    override func didReceiveMemoryWarning()
+    override func viewWillAppear(_ animated: Bool)
     {
-        super.didReceiveMemoryWarning()
+        super.viewWillAppear(true)
+        callInterface()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -166,22 +167,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         self.tmCenter = TmCenter(tmX: self.tmX, tmY: tmY, completeHandler: {
             self.stationNames = (self.tmCenter?.stationNames)!
             
-            self.callStationCenter()
+            self.callStationsCenter()
         })
     }
     
     // 측정소명으로 미세먼지 정보 받아오기
-    func callStationCenter()
+    func callStationsCenter()
     {
-        self.stationCenter = StationCenter(stationNames: self.stationNames, completeHandler: {
+        self.stationsCenter = StationsCenter(stationNames: self.stationNames, completeHandler: {
             
-            for (index, element) in self.stationCenter!.pm10Values.enumerated()
+            for (index, element) in self.stationsCenter!.pm10Values.enumerated()
             {
                 if element != ""
-                {
-                    self.pm10Value = self.stationCenter?.pm10Values[index]
-                    self.pm25Value = self.stationCenter?.pm25Values[index]
-                    self.khaiValue = self.stationCenter?.khaiValues[index]
+                {                    
+                    self.pm10Value = self.stationsCenter?.pm10Values[index]
+                    self.pm25Value = self.stationsCenter?.pm25Values[index]
+                    self.khaiValue = self.stationsCenter?.khaiValues[index]
+                    
+                    break
                 }
             }
             
@@ -308,7 +311,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @objc func keyboardWillShow(_ notification:Notification)
     {
         guard let userInfo = notification.userInfo else { return }
-        guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         
         tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
     }
@@ -362,6 +365,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
             {
                 self.xCoordinate = info[indexPath.row]["x"]?.stringValue
                 self.yCoordinate = info[indexPath.row]["y"]?.stringValue
+                self.umdName = self.searchTerm
             }
         }
         

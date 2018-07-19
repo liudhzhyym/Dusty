@@ -48,7 +48,6 @@ class SettingsViewController: UIViewController
         {
             UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(0, forKey: "concentration")
         }
-        
     }
     
     @IBAction func switchAction(_ sender: Any)
