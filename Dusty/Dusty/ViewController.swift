@@ -30,27 +30,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     
     // 네트워킹에 필요
     lazy var locationManager = CLLocationManager()
-    var stationName: String?
+    var addressCenter: AddressCenter?
     var umdCenter: UmdCenter?
     var tmCenter: TmCenter?
     var stationCenter: StationCenter?
+    var searchCenter: SearchCenter?
     
     // 미세먼지 정보
+    var xCoordinate: String?
+    var yCoordinate: String?
     var sidoName: String?
     var sggName: String?
     var umdName: String?
     var tmX: String?
     var tmY: String?
+    var stationName: String?
+    var stationNames: [JSON] = []
     var pm10Value: String?
     var pm25Value: String?
     var khaiValue: String?
     
     // 검색에 필요
-    var fixedCities: [String] = []
-    var sidoNames: [String] = []
-    var sggNames: [String] = []
-    var umdNames: [String] = []
-    
+    var searchTerm: String?
+    var info: [[String:JSON]] = []
     
     override func viewDidLoad()
     {
@@ -106,29 +108,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        // 카카오 지번주소 API 인증키
-        let headers: HTTPHeaders = ["Authorization": "KakaoAK c70e9056ac2981fa07457549afe9ee25"]
-        
-        // 카카오 지번주소 API 네트워킹
+        // 위치 좌표 받아오기
         if let xCoordinate = locations.last?.coordinate.longitude,
             let yCoordinate = locations.last?.coordinate.latitude
         {
-            let url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=\(xCoordinate)&y=\(yCoordinate)&input_coord=WGS84"
-            callAdress(url: url, headers: headers) { self.callUmdCenter() }
+            self.xCoordinate = "\(xCoordinate)"
+            self.yCoordinate = "\(yCoordinate)"
+            
+            self.callAddressCenter()
         }
         
         // 위치 정보 업데이트 정지
         locationManager.stopUpdatingLocation()
-    }
-    
-    func callUmdCenter()
-    {
-        self.umdCenter = UmdCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {
-            self.tmX = self.umdCenter?.tmX
-            self.tmY = self.umdCenter?.tmY
-            
-            self.callTmCenter()
-        })
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
@@ -146,39 +137,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         }
     }
     
-    // 현재 위치 좌표로 지번주소 및 읍면동 받아오기
-    func callAdress(url: String, headers: HTTPHeaders, completeHandler: @escaping ()->Void)
+    // 위치 좌표로 지번주소 및 읍면동 받아오기
+    func callAddressCenter()
     {
-        Alamofire.request(url, headers: headers).responseJSON { response in
-            if let data = response.data
-            {
-                do
-                {
-                    let json = try JSON(data: data)
-                    
-                    self.sidoName = "\(json["documents"][0]["address"]["region_1depth_name"])"
-                    self.sggName = "\(json["documents"][0]["address"]["region_2depth_name"])"
-                    self.umdName = "\(json["documents"][0]["address"]["region_3depth_name"])"
-                    
-                } catch let error
-                {
-                    print("\(error.localizedDescription)")
-                }
-            }
+        self.addressCenter = AddressCenter(xCoordinate: self.xCoordinate, yCoordinate: self.yCoordinate, completeHandler: {
+            self.sidoName = self.addressCenter?.sidoName
+            self.sggName = self.addressCenter?.sggName
+            self.umdName = self.addressCenter?.umdName
             
-            DispatchQueue.main.async {
-                completeHandler()
-            }
-        }.resume()
+            self.callUmdCenter()
+        })
     }
     
     // 지번 주소 및 읍면동으로 tm 좌표 받아오기
     func callUmdCenter()
     {
         self.umdCenter = UmdCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {
-//            self.sidoName = self.umdCenter?.sidoName
-//            self.sggName = self.umdCenter?.sggName
-//            self.umdName = self.umdCenter?.umdName
             self.tmX = self.umdCenter?.tmX
             self.tmY = self.umdCenter?.tmY
             
@@ -190,8 +164,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     func callTmCenter()
     {
         self.tmCenter = TmCenter(tmX: self.tmX, tmY: tmY, completeHandler: {
-            self.stationName = self.tmCenter?.stationName
-            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(self.stationName, forKey: "station")
+            self.stationNames = (self.tmCenter?.stationNames)!
             
             self.callStationCenter()
         })
@@ -200,10 +173,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     // 측정소명으로 미세먼지 정보 받아오기
     func callStationCenter()
     {
-        self.stationCenter = StationCenter(stationName: self.stationName, completeHandler: {
-            self.pm10Value = self.stationCenter?.pm10Value
-            self.pm25Value = self.stationCenter?.pm25Value
-            self.khaiValue = self.stationCenter?.khaiValue
+        self.stationCenter = StationCenter(stationNames: self.stationNames, completeHandler: {
+            
+            for (index, element) in self.stationCenter!.pm10Values.enumerated()
+            {
+                if element != ""
+                {
+                    self.pm10Value = self.stationCenter?.pm10Values[index]
+                    self.pm25Value = self.stationCenter?.pm25Values[index]
+                    self.khaiValue = self.stationCenter?.khaiValues[index]
+                }
+            }
             
             self.callInterface()
         })
@@ -357,13 +337,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return fixedCities.count
+        return info.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = fixedCities[indexPath.row]
+        
+        if let address = info[indexPath.row]["address"]?.dictionary
+        {
+            cell.textLabel?.text = address["address_name"]?.stringValue
+        }
         
         return cell
     }
@@ -372,17 +356,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
     {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        for (index, cityName) in self.fixedCities.enumerated()
+        if let address = info[indexPath.row]["address"]?.dictionary
         {
-            if cityName == cell.textLabel?.text
+            if address["address_name"]?.stringValue == cell.textLabel?.text
             {
-                self.sidoName = sidoNames[index]
-                self.sggName = sggNames[index]
-                self.umdName = umdNames[index]
+                self.xCoordinate = info[indexPath.row]["x"]?.stringValue
+                self.yCoordinate = info[indexPath.row]["y"]?.stringValue
             }
         }
         
-        self.callUmdCenter()
+        self.callAddressCenter()
         
         if #available(iOS 11.0, *)
         {
@@ -403,54 +386,25 @@ extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController)
     {
-        if let searchTerm = searchController.searchBar.text,
-            let encSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+        if let searchTerm = searchController.searchBar.text
         {
-
-            let url = "https://dapi.kakao.com/v2/local/search/address.json?query=\(encSearchTerm)"
-            let headers: HTTPHeaders = [ "Authorization" : "KakaoAK c70e9056ac2981fa07457549afe9ee25" ]
-
-            Alamofire.request(url, headers: headers).responseJSON { response in
-                if let data = response.data
-                {
-                    do
-                    {
-                        let json = try JSON(data: data)
-                        
-                        self.fixedCities = []
-                        self.sidoNames = []
-                        self.sggNames = []
-                        self.umdNames = []
-                        
-                        for place in json["documents"]
-                        {
-                            self.fixedCities.append("\(place.1["address"]["address_name"])")
-                            self.sidoNames.append("\(place.1["address"]["region_1depth_name"])")
-                            self.sggNames.append("\(place.1["address"]["region_2depth_name"])")
-                            
-                            if "\(place.1["address"]["region_3depth_name"])" != ""
-                            {
-                                self.umdNames.append("\(place.1["address"]["region_3depth_name"])")
-                            } else
-                            {
-                                self.umdNames.append("\(place.1["address"]["region_3depth_h_name"])")
-                            }
-                            
-                            self.tableView.reloadData()
-                        }
-                    } catch let error
-                    {
-                        print("\(error.localizedDescription)")
-                    }
-                }
-            }
+            self.searchTerm = searchTerm
+            callSearchCenter()
         }
     }
     
     func willDismissSearchController(_ searchController: UISearchController)
     {
         tableView.alpha = 0.0
-        fixedCities = []
+        self.info = []
         tableView.reloadData()
+    }
+    
+    func callSearchCenter()
+    {
+        self.searchCenter = SearchCenter(searchTerm: self.searchTerm, completeHandler: {
+            self.info = (self.searchCenter?.info)!
+            self.tableView.reloadData()
+        })
     }
 }

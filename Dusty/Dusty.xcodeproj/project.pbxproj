@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		EF36A63720FF7A5E0027552A /* AddressCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF36A63620FF7A5E0027552A /* AddressCenter.swift */; };
+		EF36A63921006C3A0027552A /* SearchCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF36A63821006C3A0027552A /* SearchCenter.swift */; };
 		EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DC47620285F73000FBA5A /* DesignableView.swift */; };
 		EF698C8220F9BBE6005DE014 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */; };
 		EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF74529A202D388900B213D3 /* NotificationCenter.framework */; };
@@ -53,6 +55,8 @@
 		48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dusty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.debug.xcconfig"; sourceTree = "<group>"; };
 		88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.release.xcconfig"; sourceTree = "<group>"; };
+		EF36A63620FF7A5E0027552A /* AddressCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCenter.swift; sourceTree = "<group>"; };
+		EF36A63821006C3A0027552A /* SearchCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCenter.swift; sourceTree = "<group>"; };
 		EF4DC47620285F73000FBA5A /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		EF69048F2029A57400E83F84 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -153,9 +157,11 @@
 				EF7BB7C9202D504B00892AA2 /* Dusty.entitlements */,
 				EF92C7182028494300204A57 /* AppDelegate.swift */,
 				EF92C71A2028494300204A57 /* ViewController.swift */,
+				EF36A63620FF7A5E0027552A /* AddressCenter.swift */,
 				EFC30B3C20FA5A71005D6C93 /* UmdCenter.swift */,
 				EFF0266020FB81EF00FB6249 /* TmCenter.swift */,
 				EFF0266220FBB41500FB6249 /* StationCenter.swift */,
+				EF36A63821006C3A0027552A /* SearchCenter.swift */,
 				EF698C8120F9BBE6005DE014 /* SettingsViewController.swift */,
 				EF4DC47620285F73000FBA5A /* DesignableView.swift */,
 				EF92C71C2028494300204A57 /* Main.storyboard */,
@@ -344,8 +350,10 @@
 				EFC30B3D20FA5A71005D6C93 /* UmdCenter.swift in Sources */,
 				EFF0266320FBB41500FB6249 /* StationCenter.swift in Sources */,
 				EF92C71B2028494300204A57 /* ViewController.swift in Sources */,
+				EF36A63921006C3A0027552A /* SearchCenter.swift in Sources */,
 				EF92C7192028494300204A57 /* AppDelegate.swift in Sources */,
 				EF698C8220F9BBE6005DE014 /* SettingsViewController.swift in Sources */,
+				EF36A63720FF7A5E0027552A /* AddressCenter.swift in Sources */,
 				EFF0266120FB81EF00FB6249 /* TmCenter.swift in Sources */,
 				EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */,
 			);

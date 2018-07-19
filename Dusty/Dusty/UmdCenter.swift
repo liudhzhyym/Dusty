@@ -35,13 +35,10 @@ class UmdCenter
                         
                         for name in json["list"]
                         {
-                            if sggName == "\(name.1["sggName"])"
+                            if sggName == name.1["sggName"].stringValue
                             {
-//                                self.sidoName = "\(name.1["sidoName"])"
-//                                self.sggName = "\(name.1["sggName"])"
-//                                self.umdName = "\(name.1["umdName"])"
-                                self.tmX = "\(name.1["tmX"])"
-                                self.tmY = "\(name.1["tmY"])"
+                                self.tmX = name.1["tmX"].stringValue
+                                self.tmY = name.1["tmY"].stringValue
                             }
                         }
                     } catch let error

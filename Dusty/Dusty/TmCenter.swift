@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class TmCenter
 {
-    var stationName: String?
+    var stationNames: [JSON] = []
     
     init(tmX: String?, tmY: String?, completeHandler: @escaping ()->Void)
     {
@@ -26,24 +26,10 @@ class TmCenter
                     do
                     {
                         let json = try JSON(data: data)
-                        var tmFinal = 1000000.0
                         
                         for place in json["list"]
                         {
-                            let tmString = "\(place.1["tm"])"
-                            
-                            if let tmNumber = Double(tmString)
-                            {
-                                if tmNumber < tmFinal
-                                {
-                                    tmFinal = tmNumber
-                                }
-                            }
-                            
-                            if "\(tmFinal)" == "\(place.1["tm"])"
-                            {
-                                self.stationName = "\(place.1["stationName"])"
-                            }
+                            self.stationNames.append(place.1)
                         }
                     } catch let error
                     {
