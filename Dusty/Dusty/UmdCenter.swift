@@ -12,47 +12,47 @@ import SwiftyJSON
 
 class UmdCenter
 {
-    var sidoName: String?
-    var sggName: String?
-    var umdName: String?
     var tmX: String?
     var tmY: String?
     
     init(sggName: String?, umdName: String?, completeHandler: @escaping ()->Void)
     {
         if let sggName = sggName,
-            let umdName = umdName,
-            let encUmdName = umdName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-        {            
-            let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getTMStdrCrdnt?umdName=\(encUmdName)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&_returnType=json"
+            let umdName = umdName
+        {
+            var umdFinal = umdName            
+            if umdName.count >= 3 { umdFinal = String(umdName.dropLast()) }
             
-            Alamofire.request(url).responseJSON { response in
-                if let data = response.data
-                {
-                    do
+            if let encUmdName = umdFinal.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+            {
+                let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getTMStdrCrdnt?umdName=\(encUmdName)&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&_returnType=json"
+            
+                Alamofire.request(url).responseJSON { response in
+                    if let data = response.data
                     {
-                        let json = try JSON(data: data)
-                        
-                        for name in json["list"]
+                        do
                         {
-                            if sggName == name.1["sggName"].stringValue
+                            let json = try JSON(data: data)
+                            
+                            for name in json["list"]
                             {
-                                self.tmX = name.1["tmX"].stringValue
-                                self.tmY = name.1["tmY"].stringValue
+                                if sggName == name.1["sggName"].stringValue
+                                {
+                                    self.tmX = name.1["tmX"].stringValue
+                                    self.tmY = name.1["tmY"].stringValue
+                                }
                             }
+                        } catch let error
+                        {
+                            print("\(error.localizedDescription)")
                         }
-                        
-                        print(json)
-                    } catch let error
-                    {
-                        print("\(error.localizedDescription)")
                     }
-                }
-                
-                DispatchQueue.main.async {
-                    completeHandler()
-                }
-            }.resume()
+                    
+                    DispatchQueue.main.async {
+                        completeHandler()
+                    }
+                }.resume()
+            }
         }
     }
 }

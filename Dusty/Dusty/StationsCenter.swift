@@ -31,7 +31,7 @@ class StationsCenter
                 if let encStationName = stationName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
                 {
                     let url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=\(encStationName)&dataTerm=daily&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json"
-                    
+                
                     Alamofire.request(url).responseJSON { response in
                         if let data = response.data
                         {

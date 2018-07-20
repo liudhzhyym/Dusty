@@ -34,9 +34,7 @@ class AddressCenter
                         
                         self.sidoName = json["documents"][0]["address"]["region_1depth_name"].stringValue
                         self.sggName = json["documents"][0]["address"]["region_2depth_name"].stringValue
-                        self.umdName = json["documents"][0]["address"]["region_3depth_name"].stringValue
-                        
-                        print(json)
+                        self.umdName = json["documents"][0]["address"]["region_3depth_name"].stringValue.components(separatedBy: " ").first                                                
                         
                     } catch let error
                     {

@@ -155,7 +155,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     {
         self.umdCenter = UmdCenter(sggName: self.sggName, umdName: self.umdName, completeHandler: {
             self.tmX = self.umdCenter?.tmX
-            self.tmY = self.umdCenter?.tmY
+            self.tmY = self.umdCenter?.tmY            
             
             self.callTmCenter()
         })
@@ -220,10 +220,72 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             self.fineDustLabel?.text =  "미세먼지 : " + pm10Value + " ㎍/m3"
             UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 : " + pm10Value + " ㎍/m3", forKey: "pm10")
             
-            if let pm10 = Int(pm10Value),
-                let whoBool = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "switch") as? Bool
+            if let pm10 = Int(pm10Value)
             {
-                if whoBool
+                if let whoBool = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "switch") as? Bool
+                {
+                    if whoBool
+                    {
+                        if 0 <= pm10 && 30 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
+                        } else if 30 <= pm10 && 50 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
+                        } else if 50 <= pm10 && 100 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
+                        } else if 100 <= pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
+                        } else
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
+                        }
+                        
+                        graph.image = UIImage(named: "who graph.png")
+                    } else
+                    {
+                        if 0 <= pm10 && 30 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
+                        } else if 30 <= pm10 && 80 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
+                        } else if 80 <= pm10 && 150 > pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
+                        } else if 150 <= pm10
+                        {
+                            self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
+                        } else
+                        {
+                            self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                            self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
+                        }
+                        
+                        graph.image = UIImage(named: "graph.png")
+                    }
+                } else
                 {
                     if 0 <= pm10 && 30 > pm10
                     {
@@ -253,41 +315,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                     }
                     
                     graph.image = UIImage(named: "who graph.png")
-                } else
-                {
-                    if 0 <= pm10 && 30 > pm10
-                    {
-                        self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
-                    } else if 30 <= pm10 && 80 > pm10
-                    {
-                        self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
-                    } else if 80 <= pm10 && 150 > pm10
-                    {
-                        self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
-                    } else if 150 <= pm10
-                    {
-                        self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
-                    } else
-                    {
-                        self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                        self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
-                    }
-                    
-                    graph.image = UIImage(named: "graph.png")
                 }
             } else
             {
                 self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
-                self.backgroundView?.backgroundColor = UIColor(red: 223/255, green: 227/255, blue: 238/255, alpha: 1)
+                self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
                 UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
             }
         } else
@@ -364,8 +396,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate
             if address["address_name"]?.stringValue == cell.textLabel?.text
             {
                 self.xCoordinate = info[indexPath.row]["x"]?.stringValue
-                self.yCoordinate = info[indexPath.row]["y"]?.stringValue
-                self.umdName = self.searchTerm
+                self.yCoordinate = info[indexPath.row]["y"]?.stringValue                
             }
         }
         
