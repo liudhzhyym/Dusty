@@ -40,9 +40,10 @@ class SettingsViewController: UIViewController
     {
         navigationController?.popViewController(animated: true)
         
-        if let concentrationSetting = Int(concentrationSetting.text!)
+        if let concentrationSetting = self.concentrationSetting.text,
+            let concentrationInt = Int(concentrationSetting)
         {
-            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(concentrationSetting, forKey: "concentration")
+            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(concentrationInt, forKey: "concentration")
             UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
         } else
         {

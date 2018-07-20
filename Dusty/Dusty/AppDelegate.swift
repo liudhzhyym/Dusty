@@ -10,12 +10,16 @@ import UIKit
 import UserNotifications
 
 import GoogleMobileAds
+import Alamofire
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate
 {
     var window: UIWindow?
-    var stationCenter: StationCenter?
+    
+    // 노티 센터
+    let center = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
@@ -23,9 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GADMobileAds.configure(withApplicationID: "ca-app-pub-2178088560941007~1089414105")
         
         // 로컬 노티
-        let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
-        center.delegate = self
         
         // 데이터 새로고침 주기
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
@@ -35,45 +37,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        // 로컬 노티 초기 세팅
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
-        
-        // 로컬 노티 허용 조건
+        // 로컬 노티
         if let stationName = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "station") as? String,
+            let encStationName = stationName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
             let concentration = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.integer(forKey: "concentration")
         {
-            self.stationCenter = StationCenter(stationName: stationName, completeHandler: {
-                if let pm10ValueNum = self.stationCenter?.pm10Value,
-                    let pm10Value = Int(pm10ValueNum),
-                    let notificationIsOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.bool(forKey: "notification")
+            // 네트워킹
+            let url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=\(encStationName)&dataTerm=daily&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json"
+            
+            Alamofire.request(url).responseJSON { response in
+                if let data = response.data
                 {
-                    if pm10Value >= concentration && notificationIsOn
+                    do
                     {
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                        let json = try JSON(data: data)
                         
-                        let content = UNMutableNotificationContent()
-                        content.body = "미세먼지 농도가 설정값을 넘어갔습니다"
-                        content.sound = UNNotificationSound.default()
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-                        let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
+                        let pm10Value = json["list"][0]["pm10Value"].stringValue
                         
-                        center.add(request)
-                        completionHandler(.newData)
-                    } else // falsefalse falsetrue truefalse
-                    {
-                        if pm10Value < concentration // falsefalse falsetrue
+                        if let pm10ValueInt = Int(pm10Value),
+                            let notificationIsOn = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.bool(forKey: "notification")
                         {
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
-                        } else // truefalse
-                        {
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                            if pm10ValueInt >= concentration && notificationIsOn
+                            {
+                                
+                                // 로컬 노티
+                                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                                
+                                let content = UNMutableNotificationContent()
+                                content.body = "미세먼지 농도가 설정값을 넘어갔습니다"
+                                content.sound = UNNotificationSound.default()
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                                let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
+                                
+                                self.center.add(request)
+                                completionHandler(.newData)
+                            } else
+                            {
+                                // 노티 케이스 처리
+                                if pm10ValueInt < concentration
+                                {
+                                    UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(true, forKey: "notification")
+                                } else
+                                {
+                                    UserDefaults.init(suiteName: "group.com.macker.Dusty")?.set(false, forKey: "notification")
+                                }
+                                
+                                completionHandler(.noData)
+                            }
                         }
-                        
-                        completionHandler(.noData)
+                    } catch let error
+                    {
+                        print("\(error.localizedDescription)")
                     }
                 }
-            })
+            }
         } else
         {
             completionHandler(.failed)
