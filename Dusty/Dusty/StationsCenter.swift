@@ -32,29 +32,72 @@ class StationsCenter
                 {
                     let url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=\(encStationName)&dataTerm=daily&pageNo=1&numOfRows=10&ServiceKey=WUXG8BXM9fSzuziJGtZVy%2F1wCKUhBlf65tcABdSG9zXo0Dk8jv6Q7MhVOJxAgTGe6kRUwYYCzBnBHEDmFQrdbw%3D%3D&ver=1.3&_returnType=json"
                     
-                    Alamofire.request(url).responseJSON { response in
-                        if let data = response.data
+                    let response = Alamofire.request(url).responseJSON()
+                    if let data = response.data
+                    {
+                        do
                         {
-                            do
-                            {
-                                let json = try JSON(data: data)
+                            let json = try JSON(data: data)
                             
-                                self.khaiValues.append(json["list"][0]["khaiValue"].stringValue)
-                                self.pm10Values.append(json["list"][0]["pm10Value"].stringValue)
-                                self.pm25Values.append(json["list"][0]["pm25Value"].stringValue)
-                                
-                            } catch let error
-                            {
-                                print("\(error.localizedDescription)")
-                            }
+                            self.khaiValues.append(json["list"][0]["khaiValue"].stringValue)
+                            self.pm10Values.append(json["list"][0]["pm10Value"].stringValue)
+                            self.pm25Values.append(json["list"][0]["pm25Value"].stringValue)
+                            
+                        } catch let error
+                        {
+                            print("\(error.localizedDescription)")
                         }
-                        
-                        DispatchQueue.main.async {
-                            completeHandler()
-                        }
-                    }.resume()
+                    }
                 }
             }
         }
+        
+        DispatchQueue.main.async {
+            completeHandler()
+        }
     }
 }
+
+extension DataRequest
+{
+    public func response() -> DefaultDataResponse
+    {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: DefaultDataResponse!
+        
+        self.response(queue: DispatchQueue.global(qos: .default)) { response in
+            
+            result = response
+            semaphore.signal()
+            
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        return result
+    }
+    
+    public func response<T: DataResponseSerializerProtocol>(responseSerializer: T) -> DataResponse<T.SerializedObject>
+    {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: DataResponse<T.SerializedObject>!
+        
+        self.response(queue: DispatchQueue.global(qos: .default), responseSerializer: responseSerializer) { response in
+            
+            result = response
+            semaphore.signal()
+            
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        return result
+    }
+    
+    public func responseJSON(options: JSONSerialization.ReadingOptions = .allowFragments) -> DataResponse<Any>
+    {
+        return response(responseSerializer: DataRequest.jsonResponseSerializer(options: options))
+    }
+}
+
+

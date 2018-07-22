@@ -27,17 +27,17 @@
 
 Always check for fine dust information through the Dusty app. Dusty provides simple and intuitive information on fine dust. If you leave your feedback in a user review or email, we will reflect it hard.
 
-### Basic functions
+### Basic features
 
-- Basic function: Provides atmospheric indices and concentration of fine dust
-- Location function: Locate the current user and provide fine dust information.
-- Color Function: The fine dust concentration is intuitively expressed by color.
-- Search function: Provides more detailed position search function.
+- Basic feature: Provides atmospheric indices and concentration of fine dust
+- Location feature: Locate the current user and provide fine dust information.
+- Color feature: The fine dust concentration is intuitively expressed by color.
+- Search feature: Provides more detailed position search feature.
 
-### Advanced functions
+### Advanced features
 
-- Notification function: Provides push notification according to the fine dust concentration
-- Widget function: The widget is a simple way to provide fine dust information.
-- Selection function: Possible to select between Korea and WHO boundary standard.
+- Notification feature: Provides push notification according to the fine dust concentration
+- Widget feature: The widget is a simple way to provide fine dust information.
+- Selection feature: Possible to select between Korea and WHO boundary standard.
 
 Data from the Dust Dust application is provided by the Korea Environment Corporation. Depending on local circumstances and data reception status, it may not be received.

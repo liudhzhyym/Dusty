@@ -59,9 +59,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         super.viewDidLoad()
         
         // 구글 전면 광고
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-2178088560941007/3979710443")
         let request = GADRequest()
-        request.testDevices = [ "7416938804bd66f79e049ba3971c964b" ]
         interstitial.load(request)
         
         // 위치 정보 파악
