@@ -13,6 +13,8 @@ import GoogleMobileAds
 import Alamofire
 import SwiftyJSON
 
+// searchTerm > X, Y > umdName > tmX, tmY > stationName > pm
+// 카카오 검색 api > 카카오 주소 api > 미세먼지 9,6,12 api
 class ViewController: UIViewController, CLLocationManagerDelegate
 {
     // 구글 전면 광고
