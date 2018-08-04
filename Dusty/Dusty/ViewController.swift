@@ -15,7 +15,7 @@ import SwiftyJSON
 
 // searchTerm > X, Y > umdName > tmX, tmY > stationName > pm
 // 카카오 검색 api > 카카오 주소 api > 미세먼지 9,6,12 api
-class ViewController: UIViewController, CLLocationManagerDelegate
+class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstitialDelegate
 {
     // 구글 전면 광고
     var interstitial: GADInterstitial!
@@ -61,9 +61,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         super.viewDidLoad()
         
         // 구글 전면 광고
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-2178088560941007/3979710443")
-        let request = GADRequest()
-        interstitial.load(request)
+        interstitial = createAndLoadInterstitial()
         
         // 위치 정보 파악
         locationManager.delegate = self
@@ -106,6 +104,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     {
         super.viewWillAppear(true)
         callInterface()
+    }
+    
+    // 구글 전면 광고
+    func createAndLoadInterstitial() -> GADInterstitial
+    {
+        // 테스트 광고
+        // let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-2178088560941007/3979710443")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        
+        return interstitial
+    }
+    
+    // 구글 전면 광고 닫음
+    func interstitialDidDismissScreen(_ ad: GADInterstitial)
+    {
+        interstitial = createAndLoadInterstitial()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -358,7 +374,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBAction func currentLocation(_ sender: Any)
     {
         locationManager.startUpdatingLocation()
-                
+        
+        // 구글 전면 광고
         if interstitial.isReady
         {
             interstitial.present(fromRootViewController: self)
