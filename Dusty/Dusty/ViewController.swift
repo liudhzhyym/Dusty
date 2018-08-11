@@ -196,7 +196,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
             for (index, element) in self.stationsCenter!.pm10Values.enumerated()
             {
                 if element != ""
-                {                    
+                {
+                    let stationName = self.stationsCenter?.stationNames[index]
+                    UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(stationName, forKey: "station")
+                    
                     self.pm10Value = self.stationsCenter?.pm10Values[index]
                     self.pm25Value = self.stationsCenter?.pm25Values[index]
                     self.khaiValue = self.stationsCenter?.khaiValues[index]

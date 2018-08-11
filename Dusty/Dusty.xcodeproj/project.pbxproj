@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		690460CC1F9AEDDB008F260E /* Pods_Dusty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		A3DF8B08CCB27BC93E6B168D /* Pods_Dusty_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3FDF5B1D6918E600DD056A /* Pods_Dusty_Widget.framework */; };
 		EF36A63720FF7A5E0027552A /* AddressCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF36A63620FF7A5E0027552A /* AddressCenter.swift */; };
 		EF36A63921006C3A0027552A /* SearchCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF36A63821006C3A0027552A /* SearchCenter.swift */; };
 		EF4DC47720285F73000FBA5A /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DC47620285F73000FBA5A /* DesignableView.swift */; };
@@ -52,9 +53,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2ECFCB551F9B9499FE4C6835 /* Pods-Dusty Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty Widget/Pods-Dusty Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dusty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.debug.xcconfig"; sourceTree = "<group>"; };
+		7E4B4CE025FD6513F39F1065 /* Pods-Dusty Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty Widget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty Widget/Pods-Dusty Widget.release.xcconfig"; sourceTree = "<group>"; };
 		88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dusty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dusty/Pods-Dusty.release.xcconfig"; sourceTree = "<group>"; };
+		EC3FDF5B1D6918E600DD056A /* Pods_Dusty_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dusty_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF36A63620FF7A5E0027552A /* AddressCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCenter.swift; sourceTree = "<group>"; };
 		EF36A63821006C3A0027552A /* SearchCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCenter.swift; sourceTree = "<group>"; };
 		EF4DC47620285F73000FBA5A /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF74529B202D388900B213D3 /* NotificationCenter.framework in Frameworks */,
+				A3DF8B08CCB27BC93E6B168D /* Pods_Dusty_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +112,7 @@
 				EFC11B5420FF405800D211D2 /* Alamofire.framework */,
 				48D6CC2C4146AAD11994C743 /* Pods_Dusty.framework */,
 				EF74529A202D388900B213D3 /* NotificationCenter.framework */,
+				EC3FDF5B1D6918E600DD056A /* Pods_Dusty_Widget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,6 +122,8 @@
 			children = (
 				5FBE0CDDBC776C4FB9BC8008 /* Pods-Dusty.debug.xcconfig */,
 				88E30A6F1340FFD2FC1A8FFC /* Pods-Dusty.release.xcconfig */,
+				2ECFCB551F9B9499FE4C6835 /* Pods-Dusty Widget.debug.xcconfig */,
+				7E4B4CE025FD6513F39F1065 /* Pods-Dusty Widget.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF7452A6202D388900B213D3 /* Build configuration list for PBXNativeTarget "Dusty Widget" */;
 			buildPhases = (
+				78A876DF12C3D423136D9426 /* [CP] Check Pods Manifest.lock */,
 				EF745295202D388900B213D3 /* Sources */,
 				EF745296202D388900B213D3 /* Frameworks */,
 				EF745297202D388900B213D3 /* Resources */,
@@ -312,6 +321,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		78A876DF12C3D423136D9426 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dusty Widget-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F7A329E36F3C61057ADFDF54 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -399,6 +426,7 @@
 /* Begin XCBuildConfiguration section */
 		EF7452A7202D388900B213D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2ECFCB551F9B9499FE4C6835 /* Pods-Dusty Widget.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Dusty Widget/Dusty Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -416,6 +444,7 @@
 		};
 		EF7452A8202D388900B213D3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E4B4CE025FD6513F39F1065 /* Pods-Dusty Widget.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Dusty Widget/Dusty Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
