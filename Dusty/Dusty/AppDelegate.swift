@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // 노티 센터
     let center = UNUserNotificationCenter.current()
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // 구글 광고
         GADMobileAds.configure(withApplicationID: "ca-app-pub-2178088560941007~1089414105")
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
         
         // 데이터 새로고침 주기
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 
                                 let content = UNMutableNotificationContent()
                                 content.body = "미세먼지 농도가 설정값을 넘어갔습니다"
-                                content.sound = UNNotificationSound.default()
+                                content.sound = UNNotificationSound.default
                                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                                 let request = UNNotificationRequest(identifier: "DustNotification", content: content, trigger: trigger)
                                 
