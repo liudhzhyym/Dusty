@@ -1,3 +1,7 @@
+![dusty_preview_1](https://github.com/becomingmacker/Dusty/blob/master/Artworks/files/Dusty_Preview_1.png)
+
+![dusty_preview_2](https://github.com/becomingmacker/Dusty/blob/master/Artworks/files/Dusty_Preview_2.png)
+
 # 먼지먼지
 
 [먼지먼지 앱스토어 다운로드](https://itunes.apple.com/kr/app/먼지먼지/id1346903675?l=en&mt=8)
