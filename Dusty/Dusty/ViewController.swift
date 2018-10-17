@@ -379,13 +379,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
         locationManager.startUpdatingLocation()
         
         // 구글 전면 광고
-        if interstitial.isReady
-        {
-            interstitial.present(fromRootViewController: self)
-        } else
-        {
-            print("ad wasn't ready")
-        }
+        // if interstitial.isReady
+        // {
+        //     interstitial.present(fromRootViewController: self)
+        // } else
+        // {
+        //     print("ad wasn't ready")
+        // }
     }
 }
 
