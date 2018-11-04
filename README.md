@@ -1,6 +1,6 @@
-![dusty_preview_1](https://github.com/becomingmacker/Dusty/blob/master/Artworks/files/Dusty_Preview_1.png)
+![dusty_preview_1](Artworks/files/Dusty_Preview_1.png)
 
-![dusty_preview_2](https://github.com/becomingmacker/Dusty/blob/master/Artworks/files/Dusty_Preview_2.png)
+![dusty_preview_2](Artworks/files/Dusty_Preview_2.png)
 
 # 먼지먼지
 
