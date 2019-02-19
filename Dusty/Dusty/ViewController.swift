@@ -17,18 +17,17 @@ import SwiftyJSON
 // 카카오 검색 api > 카카오 주소 api > 미세먼지 9,6,12 api
 class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstitialDelegate
 {
-    // 구글 전면 광고
-    var interstitial: GADInterstitial!
+    // 구글 배너 광고
+    @IBOutlet weak var bannerBox: UIView!
+    var bannerView: GADBannerView!
     
     // UI 요소들
     @IBOutlet var backgroundView: UIView?
-    @IBOutlet weak var overallAirLabel: UILabel?
     @IBOutlet weak var fineDustLabel: UILabel?
     @IBOutlet weak var superDustLabel: UILabel?
-    @IBOutlet weak var predictLabel: UILabel?
-    @IBOutlet weak var todayResultLabel: UITextView!
+    @IBOutlet weak var fineResultLabel: UILabel?
+    @IBOutlet weak var superResultLabel: UILabel?
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var graph: UIImageView!
     
     // 네트워킹에 필요
     lazy var locationManager = CLLocationManager()
@@ -50,7 +49,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
     var stationNames: [JSON] = []
     var pm10Value: String?
     var pm25Value: String?
-    var khaiValue: String?
     
     // 검색에 필요
     var searchTerm: String?
@@ -60,8 +58,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
     {
         super.viewDidLoad()
         
-        // 구글 전면 광고
-        interstitial = createAndLoadInterstitial()
+        // 구글 배너 광고
+        bannerView = GADBannerView(adSize: kGADAdSizeLargeBanner)
+        addBannerViewToView(bannerView)
+        
+        bannerView.adUnitID = "ca-app-pub-2178088560941007/3831120339"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
         
         // 위치 정보 파악
         locationManager.delegate = self
@@ -106,22 +109,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
         callInterface()
     }
     
-    // 구글 전면 광고
-    func createAndLoadInterstitial() -> GADInterstitial
+    // 구글 배너 광고
+    func addBannerViewToView(_ bannerView: GADBannerView)
     {
-        // 테스트 광고
-        // let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-2178088560941007/3979710443")
-        interstitial.delegate = self
-        interstitial.load(GADRequest())
+        bannerBox.translatesAutoresizingMaskIntoConstraints = false
+        bannerBox.addSubview(bannerView)
         
-        return interstitial
-    }
-    
-    // 구글 전면 광고 닫음
-    func interstitialDidDismissScreen(_ ad: GADInterstitial)
-    {
-        interstitial = createAndLoadInterstitial()
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: self.bannerBox,
+                                attribute: .bottom,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: self.bannerBox,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+        ])
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -202,7 +211,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
                     
                     self.pm10Value = self.stationsCenter?.pm10Values[index]
                     self.pm25Value = self.stationsCenter?.pm25Values[index]
-                    self.khaiValue = self.stationsCenter?.khaiValues[index]
                     
                     break
                 }
@@ -225,16 +233,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
             UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("--", forKey: "city")
         }
         
-        if let khaiValue = self.khaiValue
-        {
-            self.overallAirLabel?.text = khaiValue
-            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue(khaiValue, forKey: "khai")
-        } else
-        {
-            self.overallAirLabel?.text = "-"
-            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("-", forKey: "khai")
-        }
-        
         if let pm10Value = self.pm10Value
         {
             self.fineDustLabel?.text =  "미세먼지 : " + pm10Value + " ㎍/m3"
@@ -248,99 +246,77 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
                     {
                         if 0 <= pm10 && 30 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 좋습니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
                         } else if 30 <= pm10 && 50 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 보통입니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
                         } else if 50 <= pm10 && 100 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 나쁩니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
                         } else if 100 <= pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                            self.fineResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
                         } else
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                            self.fineResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                         }
-                        
-                        graph.image = UIImage(named: "who graph.png")
                     } else
                     {
                         if 0 <= pm10 && 30 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 좋습니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
                         } else if 30 <= pm10 && 80 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 보통입니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
                         } else if 80 <= pm10 && 150 > pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                            self.fineResultLabel?.text = "미세먼지 농도가 나쁩니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
                         } else if 150 <= pm10
                         {
-                            self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                            self.fineResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
                         } else
                         {
-                            self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                            self.fineResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                             self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                            UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                         }
-                        
-                        graph.image = UIImage(named: "graph.png")
                     }
                 } else
                 {
                     if 0 <= pm10 && 30 > pm10
                     {
-                        self.todayResultLabel?.text = "미세먼지 농도가 좋습니다"
+                        self.fineResultLabel?.text = "미세먼지 농도가 좋습니다"
                         self.backgroundView?.backgroundColor = UIColor(red: 214/255, green: 221/255, blue: 238/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 좋습니다", forKey: "today")
                     } else if 30 <= pm10 && 50 > pm10
                     {
-                        self.todayResultLabel?.text = "미세먼지 농도가 보통입니다"
+                        self.fineResultLabel?.text = "미세먼지 농도가 보통입니다"
                         self.backgroundView?.backgroundColor = UIColor(red: 236/255, green: 242/255, blue: 218/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 보통입니다", forKey: "today")
                     } else if 50 <= pm10 && 100 > pm10
                     {
-                        self.todayResultLabel?.text = "미세먼지 농도가 나쁩니다"
+                        self.fineResultLabel?.text = "미세먼지 농도가 나쁩니다"
                         self.backgroundView?.backgroundColor = UIColor(red: 240/255, green: 201/255, blue: 192/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 나쁩니다", forKey: "today")
                     } else if 100 <= pm10
                     {
-                        self.todayResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
+                        self.fineResultLabel?.text = "미세먼지가 농도가 매우 나쁩니다"
                         self.backgroundView?.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도가 매우 나쁩니다", forKey: "today")
                     } else
                     {
-                        self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                        self.fineResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                         self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                        UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
                     }
-                    
-                    graph.image = UIImage(named: "who graph.png")
                 }
             } else
             {
-                self.todayResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
+                self.fineResultLabel?.text = "미세먼지 농도 측정이 불가합니다"
                 self.backgroundView?.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("미세먼지 농도 측정이 불가합니다", forKey: "today")
             }
         } else
         {
@@ -352,6 +328,71 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
         {
             self.superDustLabel?.text =  "초미세먼지 : " + pm25Value + " ㎍/m3"
             UserDefaults.init(suiteName: "group.com.macker.Dusty")?.setValue("초미세먼지 : " + pm25Value + " ㎍/m3", forKey: "pm25")
+            
+            if let pm25 = Int(pm25Value)
+            {
+                if let whoBool = UserDefaults.init(suiteName: "group.com.macker.Dusty")?.value(forKey: "switch") as? Bool
+                {
+                    if whoBool
+                    {
+                        if 0 <= pm25 && 15 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 좋습니다"
+                        } else if 15 <= pm25 && 25 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 보통입니다"
+                        } else if 25 <= pm25 && 50 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 나쁩니다"
+                        } else if 50 <= pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지가 농도가 매우 나쁩니다"
+                        } else
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도 측정이 불가합니다"
+                        }
+                    } else
+                    {
+                        if 0 <= pm25 && 15 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 좋습니다"
+                        } else if 15 <= pm25 && 35 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 보통입니다"
+                        } else if 35 <= pm25 && 75 > pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도가 나쁩니다"
+                        } else if 75 <= pm25
+                        {
+                            self.superResultLabel?.text = "초미세먼지가 농도가 매우 나쁩니다"
+                        } else
+                        {
+                            self.superResultLabel?.text = "초미세먼지 농도 측정이 불가합니다"
+                        }
+                    }
+                } else
+                {
+                    if 0 <= pm25 && 15 > pm25
+                    {
+                        self.superResultLabel?.text = "초미세먼지 농도가 좋습니다"
+                    } else if 15 <= pm25 && 25 > pm25
+                    {
+                        self.superResultLabel?.text = "초미세먼지 농도가 보통입니다"
+                    } else if 25 <= pm25 && 50 > pm25
+                    {
+                        self.superResultLabel?.text = "초미세먼지 농도가 나쁩니다"
+                    } else if 50 <= pm25
+                    {
+                        self.superResultLabel?.text = "초미세먼지 농도가 매우 나쁩니다"
+                    } else
+                    {
+                        self.superResultLabel?.text = "초미세먼지 농도 측정이 불가합니다"
+                    }
+                }
+            } else
+            {
+                self.superResultLabel?.text = "초미세먼지 농도 측정이 불가합니다"
+            }
         } else
         {
             self.superDustLabel?.text =  "초미세먼지 : - ㎍/m3"
@@ -377,15 +418,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
     @IBAction func currentLocation(_ sender: Any)
     {
         locationManager.startUpdatingLocation()
-        
-        // 구글 전면 광고
-        // if interstitial.isReady
-        // {
-        //     interstitial.present(fromRootViewController: self)
-        // } else
-        // {
-        //     print("ad wasn't ready")
-        // }
     }
 }
 

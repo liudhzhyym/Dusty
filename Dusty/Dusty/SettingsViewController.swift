@@ -7,15 +7,28 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class SettingsViewController: UIViewController
 {
     @IBOutlet weak var whoSwitch: UISwitch!
     @IBOutlet weak var concentrationSetting: UITextField!
     
+    // 구글 배너 광고
+    @IBOutlet weak var bannerBox: UIView!
+    var bannerView: GADBannerView!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        // 구글 배너 광고
+        bannerView = GADBannerView(adSize: kGADAdSizeLargeBanner)
+        addBannerViewToView(bannerView)
+        
+        bannerView.adUnitID = "ca-app-pub-2178088560941007/3831120339"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
@@ -29,6 +42,30 @@ class SettingsViewController: UIViewController
         {
             self.concentrationSetting.text = "\(concentrationSetting)"
         }
+    }
+    
+    // 구글 배너 광고
+    func addBannerViewToView(_ bannerView: GADBannerView)
+    {
+        bannerBox.translatesAutoresizingMaskIntoConstraints = false
+        bannerBox.addSubview(bannerView)
+        
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: self.bannerBox,
+                                attribute: .bottom,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: self.bannerBox,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
     
     @objc func dismissKeyboard()

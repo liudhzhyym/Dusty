@@ -14,12 +14,10 @@ class StationsCenter
 {
     var pm10Value: String?
     var pm25Value: String?
-    var khaiValue: String?
     
     var stationNames: [String] = []
     var pm10Values: [String] = []
     var pm25Values: [String] = []
-    var khaiValues: [String] = []
     
     init(stationNames: [JSON], completeHandler: @escaping ()->Void)
     {
@@ -39,7 +37,6 @@ class StationsCenter
                             let json = try JSON(data: data)
                             
                             self.stationNames.append(stationName)
-                            self.khaiValues.append(json["list"][0]["khaiValue"].stringValue)
                             self.pm10Values.append(json["list"][0]["pm10Value"].stringValue)
                             self.pm25Values.append(json["list"][0]["pm25Value"].stringValue)
                             

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,60 +15,40 @@
             <objects>
                 <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Dusty_Widget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRN-xb-rFp">
-                                <rect key="frame" x="20" y="21.666666666666671" width="207" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정자동" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRN-xb-rFp">
+                                <rect key="frame" x="25" y="50" width="207" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Vl-XJ-LYg">
-                                <rect key="frame" x="20" y="86" width="165.66666666666666" height="36"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지 : - ㎍/m3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWl-DA-DS2">
-                                <rect key="frame" x="145.66666666666663" y="81" width="248.33333333333337" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지 : - ㎍/m3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWl-DA-DS2">
+                                <rect key="frame" x="140.66666666666663" y="36.666666666666664" width="248.33333333333337" height="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="초미세먼지 : - ㎍/m3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-Zp-dxt">
-                                <rect key="frame" x="145.66666666666663" y="113" width="248.33333333333337" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFP-Oj-qE2">
-                                <rect key="frame" x="187" y="25" width="207" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                <rect key="frame" x="140.66666666666663" y="75.666666666666671" width="248.33333333333337" height="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="cRN-xb-rFp" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="0.4" id="2JB-SC-ulw"/>
-                            <constraint firstItem="0Vl-XJ-LYg" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.4" id="8b6-xT-mNL"/>
                             <constraint firstItem="EWl-DA-DS2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="H5r-p4-Tux"/>
-                            <constraint firstItem="YFP-Oj-qE2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="Ik0-ho-JEj"/>
-                            <constraint firstItem="EWl-DA-DS2" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="1.1" id="MqT-Jz-tPP"/>
-                            <constraint firstItem="YFP-Oj-qE2" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="0.4" id="Uxz-He-Az4"/>
-                            <constraint firstItem="YFP-Oj-qE2" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-20" id="XkU-pZ-pkU"/>
-                            <constraint firstItem="YFP-Oj-qE2" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.5" id="Y29-zM-81o"/>
                             <constraint firstItem="yX8-Zp-dxt" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.6" id="YvZ-tY-fAm"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cRN-xb-rFp" secondAttribute="trailing" constant="20" symbolic="YES" id="aJv-Rz-qj5"/>
-                            <constraint firstItem="yX8-Zp-dxt" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="1.5" id="aRC-EQ-rRH"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Vl-XJ-LYg" secondAttribute="trailing" constant="20" symbolic="YES" id="bLf-Lz-BkP"/>
                             <constraint firstItem="EWl-DA-DS2" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.6" id="bWs-7N-nOM"/>
-                            <constraint firstItem="EWl-DA-DS2" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-20" id="brz-sM-e3G"/>
-                            <constraint firstItem="0Vl-XJ-LYg" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="1.3" id="c0b-op-r7x"/>
-                            <constraint firstItem="yX8-Zp-dxt" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-20" id="l4T-oz-b8y"/>
+                            <constraint firstItem="EWl-DA-DS2" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-25" id="brz-sM-e3G"/>
+                            <constraint firstItem="yX8-Zp-dxt" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="1.3" id="hb6-b6-zfd"/>
+                            <constraint firstItem="yX8-Zp-dxt" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-25" id="l4T-oz-b8y"/>
+                            <constraint firstItem="cRN-xb-rFp" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="o3E-DN-XDP"/>
                             <constraint firstItem="cRN-xb-rFp" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.5" id="p3Z-do-eme"/>
-                            <constraint firstItem="0Vl-XJ-LYg" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="20" id="q2h-sD-i0m"/>
-                            <constraint firstItem="cRN-xb-rFp" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="20" id="v9y-OT-TGv"/>
+                            <constraint firstItem="EWl-DA-DS2" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" multiplier="0.7" id="rKQ-3c-q4i"/>
+                            <constraint firstItem="cRN-xb-rFp" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="25" id="v9y-OT-TGv"/>
                             <constraint firstItem="yX8-Zp-dxt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="yvd-hf-qnL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
@@ -77,13 +56,11 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="150"/>
+                    <size key="freeformSize" width="414" height="120"/>
                     <connections>
                         <outlet property="city" destination="cRN-xb-rFp" id="17H-X3-Ybh"/>
-                        <outlet property="khai" destination="0Vl-XJ-LYg" id="ALg-1L-cJ3"/>
                         <outlet property="pm10" destination="EWl-DA-DS2" id="lVC-4K-TI8"/>
                         <outlet property="pm25" destination="yX8-Zp-dxt" id="mJm-gV-tvR"/>
-                        <outlet property="today" destination="YFP-Oj-qE2" id="aKg-hd-g20"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
