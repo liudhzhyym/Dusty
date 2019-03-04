@@ -24,11 +24,10 @@ class SettingsViewController: UIViewController
         
         // 구글 배너 광고
         bannerView = GADBannerView(adSize: kGADAdSizeLargeBanner)
-        addBannerViewToView(bannerView)
-        
         bannerView.adUnitID = "ca-app-pub-2178088560941007/3831120339"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
+        addBannerViewToView(bannerView)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)

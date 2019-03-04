@@ -58,18 +58,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
     {
         super.viewDidLoad()
         
-        // 구글 배너 광고
-        bannerView = GADBannerView(adSize: kGADAdSizeLargeBanner)
-        addBannerViewToView(bannerView)
-        
-        bannerView.adUnitID = "ca-app-pub-2178088560941007/3831120339"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        
         // 위치 정보 파악
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        // 네비게이션바 큰 타이틀
+        if #available(iOS 11.0, *)
+        {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        } else
+        {
+            print("need iOS 11.0 or higher")
+        }
         
         // 검색창
         let searchController = UISearchController(searchResultsController: nil)
@@ -89,14 +90,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
             print("need iOS 11.0 or higher")
         }
         
-        // 네비게이션바 큰 타이틀
-        if #available(iOS 11.0, *)
-        {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-        } else
-        {
-            print("need iOS 11.0 or higher")
-        }
+        // 구글 배너 광고
+        bannerView = GADBannerView(adSize: kGADAdSizeLargeBanner)
+        bannerView.adUnitID = "ca-app-pub-2178088560941007/3831120339"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        addBannerViewToView(bannerView)
         
         // 검색시 키보드 작동
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
