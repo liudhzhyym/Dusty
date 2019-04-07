@@ -51,6 +51,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
     var pm25Value: String?
     
     // 검색에 필요
+    let searchController = UISearchController(searchResultsController: nil)
     var searchTerm: String?
     var info: [[String:JSON]] = []
     
@@ -73,7 +74,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GADInterstiti
         }
         
         // 검색창
-        let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.autocapitalizationType = .none
         searchController.delegate = self
         searchController.searchResultsUpdater = self

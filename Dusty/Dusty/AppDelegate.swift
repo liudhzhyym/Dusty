@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // 구글 광고
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-2178088560941007~1089414105")
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         // 로컬 노티
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
